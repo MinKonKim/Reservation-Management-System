@@ -1,7 +1,21 @@
-import React from "react";
+import { addDoc, collection } from "firebase/firestore/lite";
+import React, { useState } from "react";
+import fireStore from "../../firebase/firestore";
 
 const main = () => {
-  return <div>main</div>;
+  const [value, setValue] = useState();
+
+  const onClickUpLoadButton = async () => {
+    await addDoc(collection(fireStore, `users`), {
+      value,
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={onClickUpLoadButton}>Ada Lovelace 등록</button>
+    </div>
+  );
 };
 
 export default main;
