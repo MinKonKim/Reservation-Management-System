@@ -1,5 +1,7 @@
-import { getAuth } from "firebase/auth/cordova";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import firebasedb from "./firebase";
 
 const fireAuth = getAuth(firebasedb);
-export default fireAuth;
+const googleAuthProvider = new GoogleAuthProvider();
+
+export { fireAuth, googleAuthProvider };
