@@ -1,30 +1,22 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-interface InputProps {
-  type?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  disabled?: boolean;
-}
+// React.InputHTMLAttributes를 사용하여 기본 input 속성을 모두 포함
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Input: React.FC<InputProps> = ({
-  type = "text", // 기본적으로 text 타입으로 설정
-  value,
-  onChange,
-  placeholder,
-  disabled = false,
-}) => {
-  return (
-    <input
-      type={type}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      disabled={disabled}
-      className="p-3 m-1 border-solid border-2 border-indigo-600 rounded-lg"
-    />
-  );
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ type = "text", className = "", ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        ref={ref}
+        className={`p-3 m-1 border-solid border-2 border-indigo-600 rounded-lg ${className}`}
+        {...props} // 나머지 props 전달
+      />
+    );
+  }
+);
+
+// displayName 추가
+Input.displayName = "Input";
 
 export default Input;

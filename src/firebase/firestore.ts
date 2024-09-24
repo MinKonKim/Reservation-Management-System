@@ -1,5 +1,6 @@
-import { getFirestore } from "firebase/firestore";
+import { collection, getFirestore } from "firebase/firestore";
 import firebasedb from "./firebase";
 
-const fireStore = getFirestore(firebasedb);
-export default fireStore;
+export const db = getFirestore(firebasedb);
+
+export const USER_COLLECTION = collection(db, "users");

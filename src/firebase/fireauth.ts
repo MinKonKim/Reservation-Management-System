@@ -4,4 +4,4 @@ import firebasedb from "./firebase";
 const fireAuth = getAuth(firebasedb);
 const googleAuthProvider = new GoogleAuthProvider();
 
-export { fireAuth, googleAuthProvider };
+export { fireAuth as auth, googleAuthProvider };
