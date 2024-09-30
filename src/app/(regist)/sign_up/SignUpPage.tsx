@@ -1,28 +1,26 @@
 "use client";
-import React, { useRef, useState } from "react";
-import Input from "@/components/InputComponent/Input";
-import Header from "@/components/HeaderComponent/Header";
 import Button from "@/components/ButtonComponent/Button";
+import Header from "@/components/HeaderComponent/Header";
+import Input from "@/components/InputComponent/Input";
 import axios from "axios";
+import React, { useRef } from "react";
 
 const SignUpPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordCheckRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
-  const [message, setMessage] = useState("");
 
-  const handleSignup = async (event: React.FormEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleSignup = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (!emailRef.current || !passwordRef.current) return;
     try {
-      const response = await axios.post("/api/user", {
+      await axios.post("/api/user", {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
-      setMessage(response.data.message);
     } catch (error) {
-      setMessage(`회원가입 실패 : ${error}`);
+      console.error(error);
     }
   };
   return (
@@ -54,7 +52,6 @@ const SignUpPage = () => {
       />
       <Input type="text" ref={nameRef} placeholder="이름" required={true} />
       <Button onClick={handleSignup}> 가입 하기 </Button>
-      {message && <p className="overflow-hidden">{message}</p>}
     </>
   );
 };
