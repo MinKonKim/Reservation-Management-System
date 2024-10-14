@@ -25,3 +25,13 @@ body {
     text-wrap: balance;
   }
 }
+/* styles/globals.css */
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+html {
+  font-family: "Pretendard";
+}

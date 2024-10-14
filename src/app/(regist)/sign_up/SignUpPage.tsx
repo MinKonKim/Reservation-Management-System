@@ -1,58 +1,21 @@
-"use client";
-import Button from "@/components/ButtonComponent/Button";
-import Header from "@/components/HeaderComponent/Header";
-import Input from "@/components/InputComponent/Input";
-import axios from "axios";
-import React, { useRef } from "react";
+import Link from "next/link";
 
 const SignUpPage = () => {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const passwordCheckRef = useRef<HTMLInputElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-
-  const handleSignup = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (!emailRef.current || !passwordRef.current) return;
-    try {
-      await axios.post("/api/user", {
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
   return (
-    <>
-      <Header
-        tag="h3"
-        size="large"
-        className="w-full items-center justify-center flex m-3 p-3"
+    <div className="flex flex-col gap-1 h-full justify-center items-center m-6">
+      <Link
+        href="/sign_up/user"
+        className="w-full flex justify-center items-center bg-Prime-400 rounded-lg h-[33vh] font-bold text-5xl text-white hover:bg-Prime-500"
       >
-        회원가입
-      </Header>
-      <Input
-        type="email"
-        ref={emailRef}
-        placeholder="아이디 ex) asdf@gmail.com"
-        required={true}
-      />
-      <Input
-        type="password"
-        ref={passwordRef}
-        placeholder="비밀번호"
-        required={true}
-      />
-      <Input
-        type="password"
-        ref={passwordCheckRef}
-        placeholder="비밀번호 확인"
-        required={true}
-      />
-      <Input type="text" ref={nameRef} placeholder="이름" required={true} />
-      <Button onClick={handleSignup}> 가입 하기 </Button>
-    </>
+        일반 사용자
+      </Link>
+      <Link
+        href="/sign_up/admin"
+        className="w-full flex justify-center items-center bg-Point-400 rounded-lg h-[33vh] font-bold text-5xl text-white hover:bg-Point-500"
+      >
+        어드민
+      </Link>
+    </div>
   );
 };
 
