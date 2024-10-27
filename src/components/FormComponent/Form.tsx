@@ -15,6 +15,7 @@ const Form = ({ handleSubmit, formData, setFormData }: FormProps) => {
   useEffect(() => {
     console.log(formData);
   }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement;
     // name이 formData의 키로 존재하는지 확인
@@ -23,8 +24,6 @@ const Form = ({ handleSubmit, formData, setFormData }: FormProps) => {
         ...prevData,
         [name]: value,
       }));
-    } else {
-      console.log("올바른 키가 아닙니다.", name);
     }
   };
 
