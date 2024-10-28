@@ -1,5 +1,6 @@
 "use client";
 import AutoForm from "@/components/FormComponent";
+import { FormFields } from "@/types/FormType";
 const SignupPage = () => {
   const basicInfo = {
     email: "example@example.com",
@@ -9,8 +10,11 @@ const SignupPage = () => {
     birthDate: new Date(),
     role: ["Admin", "User", "Guest"],
   };
-
-  return <AutoForm fields={basicInfo} />;
+  const handleFormSubmit = (data: FormFields) => {
+    // 회원가입 로직 넣기
+    console.log("", data);
+  };
+  return <AutoForm fields={basicInfo} onSubmit={handleFormSubmit} />;
 };
 
 export default SignupPage;

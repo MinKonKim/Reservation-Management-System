@@ -9,6 +9,7 @@ import Select from "../SelectComponet";
 
 interface AutoFormProps {
   fields: FormFields;
+  onSubmit: (data: FormFields) => void; // onSubmit 함수 타입 정의
 }
 
 // Zod 스키마 생성 함수
@@ -36,7 +37,7 @@ const generateZodSchema = (fields: FormFields) => {
 };
 
 // 폼 컴포넌트
-const AutoForm: React.FC<AutoFormProps> = ({ fields }) => {
+const AutoForm = ({ fields, onSubmit }: AutoFormProps) => {
   const schema = generateZodSchema(fields);
   const {
     register,
@@ -45,10 +46,6 @@ const AutoForm: React.FC<AutoFormProps> = ({ fields }) => {
   } = useForm({
     resolver: zodResolver(schema),
   });
-
-  const onSubmit = (data: FormFields) => {
-    console.log("폼 제출 데이터:", data);
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
