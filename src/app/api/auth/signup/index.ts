@@ -16,9 +16,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       email,
       password
     );
-    return res
-      .status(200)
-      .json({ message: "유저 회원가입 성공!", userCredential });
+    const { uid } = userCredential.user;
+    return res.status(200).json({ message: "유저 회원가입 성공!", uid });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     const errorCode = error.code;

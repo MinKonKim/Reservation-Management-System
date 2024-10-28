@@ -35,8 +35,8 @@ const Form = ({ handleSubmit, formData, setFormData }: FormProps) => {
           key={key}
           label={key}
           name={key} // name도 key로 설정하여 handleChange에서 구분
-          type={formData[key]} // 기본적으로 type을 "text"로 설정 (필요시 다르게 설정 가능)
-          value={formData[key]} // value는 data 객체에서 가져옴
+          type={formData[key] as string} // 기본적으로 type을 "text"로 설정 (필요시 다르게 설정 가능)
+          value={formData[key] as string} // value는 data 객체에서 가져옴
           onChange={handleChange}
         />
       ))}

@@ -1,3 +1,3 @@
 export interface FormType {
-  [key: string]: string;
+  [key: string]: string | boolean;
 }

@@ -33,7 +33,7 @@ const InputFeild = ({
     <div className="mb-4">
       <label className="block text-gray-700">{LABELS[label] || label}</label>
       <Input
-        type={type}
+        type={type === "password" || "passwordCheck" ? "password" : "text"}
         name={name}
         placeholder={PLACEHOLDER[name] || LABELS[name] || name}
         value={value}
