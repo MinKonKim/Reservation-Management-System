@@ -37,7 +37,7 @@ const generateZodSchema = (fields: FormFields) => {
 };
 
 // 폼 컴포넌트
-const AutoForm = ({ fields, onSubmit }: AutoFormProps) => {
+function CreateForm({ fields, onSubmit }: AutoFormProps) {
   const schema = generateZodSchema(fields);
   const {
     register,
@@ -75,6 +75,6 @@ const AutoForm = ({ fields, onSubmit }: AutoFormProps) => {
       </Button>
     </form>
   );
-};
+}
 
-export default AutoForm;
+export default CreateForm;
