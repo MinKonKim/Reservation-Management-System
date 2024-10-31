@@ -9,6 +9,7 @@ export interface UserType {
   createdAt?: Date; // 계정 생성 시간
   updatedAt?: Date; // 계정 정보 마지막 업데이트 시간
 }
+
 export interface ReservationType {
   id: string; // 예약 ID (Firebase에서 생성된 고유 ID)
   userId: string; // 예약한 사용자 ID (Users 테이블의 ID 참조)
