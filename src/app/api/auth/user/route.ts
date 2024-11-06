@@ -1,19 +1,16 @@
 import { db } from "@/firebase/firebase";
 import { UserType } from "@/types/firebase.type";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 // 새 사용자 생성 (POST)
 const createUser = async (user: UserType) => {
-  const uid = user.id || doc(db, "users").id; // Firebase에서 새로 생성될 ID
-
-  await setDoc(doc(db, "users", uid), {
+  const docRef = await addDoc(collection(db, "users"), {
     ...user,
-    id: uid,
   });
 
   return NextResponse.json(
-    { message: "사용자 생성 성공", uid },
+    { message: "사용자 생성 성공", docRef },
     { status: 200 }
   );
 };
