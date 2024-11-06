@@ -15,7 +15,7 @@ export const GET = async (
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {
-      const userData = querySnapshot.docs[0].data();
+      const userData = querySnapshot.docs[0].data().userData;
       return NextResponse.json({ ...userData }, { status: 200 });
     } else {
       return NextResponse.json(

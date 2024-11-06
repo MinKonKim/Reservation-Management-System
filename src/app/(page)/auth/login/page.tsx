@@ -23,8 +23,7 @@ const LoginPage = () => {
       const { uid } = loginData.data;
 
       const userData = await axios.get(`/api/user/${uid}`);
-      const { is_admin } = userData.data.userData;
-      console.log("IsAdmin? :", userData.data.userData);
+      const { is_admin } = userData.data;
       route.push(`/${is_admin ? "admin" : "user"}/dashboard/${uid}`);
     } catch (error) {
       console.log(error);
