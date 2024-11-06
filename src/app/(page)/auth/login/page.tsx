@@ -1,23 +1,41 @@
 "use client";
-import { auth } from "@/firebase/firebase";
-import { signInAnonymously } from "firebase/auth";
-import { useEffect } from "react";
+import CreateForm from "@/components/FormComponent";
+import { FormFields } from "@/types/FormFields";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  const testFirebaseAuthConnection = async () => {
+  const loginInfo = {
+    email: "이메일",
+    password: "비밀번호",
+  };
+
+  const route = useRouter();
+
+  const handleSubmit = async (data: FormFields) => {
     try {
-      const userCredential = await signInAnonymously(auth);
-      console.log("익명 로그인 성공:", userCredential.user);
-      alert("Firebase 인증 연결 성공");
+      const { email, password } = data;
+
+      const loginData = await axios.post("/api/auth/login", {
+        email: email,
+        password: password,
+      });
+      const { uid } = loginData.data;
+
+      const userData = await axios.get(`/api/user/${uid}`);
+      const { is_admin } = userData.data.userData;
+      console.log("IsAdmin? :", userData.data.userData);
+      route.push(`/${is_admin ? "admin" : "user"}/dashboard/${uid}`);
     } catch (error) {
-      console.error("Firebase 인증 연결 실패:", error);
-      alert("Firebase 인증 연결 실패");
+      console.log(error);
     }
   };
-  useEffect(() => {
-    testFirebaseAuthConnection();
-  }, []);
-  return <div>LoginPage</div>;
+
+  return (
+    <div>
+      <CreateForm fields={loginInfo} onSubmit={handleSubmit} />
+    </div>
+  );
 };
 
 export default LoginPage;

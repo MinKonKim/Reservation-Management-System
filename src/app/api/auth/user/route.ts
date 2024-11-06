@@ -1,7 +1,21 @@
-import { db } from "@/firebase/firebase";
+import { auth, db } from "@/firebase/firebase";
 import { UserType } from "@/types/firebase.type";
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
+
+// 현재 사용자 정보 가져오기
+const getUser = async () => {
+  const user = auth.currentUser;
+
+  if (user) {
+    return NextResponse.json({ user: user }, { status: 200 });
+  } else {
+    return NextResponse.json(
+      { message: "유저 정보가 없습니다" },
+      { status: 400 }
+    );
+  }
+};
 
 // 새 사용자 생성 (POST)
 const createUser = async (user: UserType) => {
@@ -29,6 +43,19 @@ const updateUser = async (user: UserType) => {
   });
 
   return NextResponse.json({ message: "사용자 정보 업데이트 성공" });
+};
+
+export const GET = async () => {
+  try {
+    return await getUser();
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return NextResponse.json(
+      { message: error.message, code: error.code },
+      { status: 400 }
+    );
+  }
 };
 
 export const POST = async (req: Request) => {

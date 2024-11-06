@@ -1,8 +1,7 @@
-import { auth } from "@/firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase/firebase"; // Firebase 설정이 있는 파일
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { NextResponse } from "next/server";
 
-// 회원 가입 로직
 export const POST = async (req: Request) => {
   const { email, password } = await req.json();
   try {
@@ -13,21 +12,28 @@ export const POST = async (req: Request) => {
       );
     }
 
-    const userCredential = await createUserWithEmailAndPassword(
+    const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
       password
     );
-    const { uid } = userCredential.user;
+    const user = userCredential.user;
     return NextResponse.json(
-      { message: "유저 회원가입 성공!", uid },
+      {
+        message: "로그인 성공",
+        uid: user.uid,
+        email: user.email,
+      },
       { status: 200 }
     );
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return NextResponse.json(
-      { message: error.message, code: error.code },
-      { status: 400 }
+      {
+        message: "로그인 실패",
+        error: error.message,
+      },
+      { status: 401 }
     );
   }
 };
