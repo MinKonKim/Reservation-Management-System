@@ -1,5 +1,5 @@
 "use client";
-import CreateForm from "@/components/FormComponent";
+import CreateForm from "@/components/(StyledComponents)/FormComponent";
 import { UserType } from "@/types/firebase.type";
 import { FormFields } from "@/types/FormFields";
 import { UserInputType } from "@/types/user";
