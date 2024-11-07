@@ -3,8 +3,11 @@ import { generateZodSchema } from "@/utils/generateZodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Button from "../ButtonComponent";
-import Input from "../InputComponent/Input";
+import Input from "../InputComponent";
 import Select from "../SelectComponet";
+
+// TODO TextArea 컴포넌트 만들기
+// TODO Form 컴포넌트에서 placeholder가 굳이 필요한지 정하기
 
 interface AutoFormProps {
   fields: FormFields;
@@ -45,6 +48,20 @@ function CreateForm({ fields, onSubmit }: AutoFormProps) {
               {...register(key)}
               options={fields[key] as string[]}
               isFull
+            />
+          ) : String(fields[key]).includes("textarea") ? (
+            <textarea
+              {...register(key)}
+              className="w-full p-2 border rounded-lg"
+              rows={4}
+              placeholder="Enter text here..."
+            />
+          ) : String(fields[key]).includes("file") ? (
+            <Input
+              {...register(key)}
+              type="file"
+              className="w-full p-2 border rounded-lg"
+              accept="image/*"
             />
           ) : null}
           {errors[key] && <p>{errors[key]?.message as string}</p>}

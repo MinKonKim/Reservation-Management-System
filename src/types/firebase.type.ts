@@ -8,8 +8,8 @@ export type UserType = {
   address: string;
   is_admin?: boolean; // 어드민 판별 true : 어드민  false : 유저
   phone_number: string;
-  createdAt: firebase.firestore.Timestamp; // 사용자 등록 일자
-  updatedAt: firebase.firestore.Timestamp; // 사용자 수정 일자
+  createdAt?: firebase.firestore.Timestamp; // 사용자 등록 일자
+  updatedAt?: firebase.firestore.Timestamp; // 사용자 수정 일자
 };
 
 // products 컬렉션 타입
@@ -17,7 +17,7 @@ export type ProductType = {
   id: string; // Firestore 문서 ID
   name: string; // 상품 이름
   description: string; // 상품 설명
-  category: string; // 상품 카테고리 (예: 숙박, 투어 등)
+  category?: string; // 상품 카테고리 (예: 숙박, 투어 등)
   price: number; // 상품 가격
   availableFrom: firebase.firestore.Timestamp; // 예약 가능 시작일
   availableTo: firebase.firestore.Timestamp; // 예약 가능 종료일

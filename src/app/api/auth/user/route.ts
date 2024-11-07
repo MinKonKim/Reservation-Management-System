@@ -1,6 +1,12 @@
 import { auth, db } from "@/firebase/firebase";
 import { UserType } from "@/types/firebase.type";
-import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 // 현재 사용자 정보 가져오기
@@ -20,7 +26,11 @@ const getUser = async () => {
 // 새 사용자 생성 (POST)
 const createUser = async (user: UserType) => {
   const docRef = doc(collection(db, "users"));
-  await setDoc(docRef, user);
+  await setDoc(docRef, {
+    ...user,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
 
   return NextResponse.json(
     { message: "사용자 생성 성공", docRef },
@@ -39,7 +49,7 @@ const updateUser = async (user: UserType) => {
 
   await updateDoc(userRef, {
     ...user,
-    updatedAt: new Date(),
+    updatedAt: serverTimestamp(),
   });
 
   return NextResponse.json({ message: "사용자 정보 업데이트 성공" });

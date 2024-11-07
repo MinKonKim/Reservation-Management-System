@@ -33,8 +33,6 @@ const SignupPage = () => {
         phone_number: data.phoneNumber as string,
         is_admin: data.role === "Admin" ? true : false,
         name: data.name as string,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       };
       const response = await axios.post("/api/auth/user", { userData });
 
