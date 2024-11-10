@@ -1,5 +1,5 @@
 const ReservationWidget = () => {
-  return <div className="p-3 shadow-lg">ReservationWidget</div>;
+  return <div>ReservationWidget</div>;
 };
 
 export default ReservationWidget;

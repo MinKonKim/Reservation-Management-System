@@ -1,5 +1,6 @@
 "use client";
 import CalenderWidget from "@/components/(WidgetComponents)/CalenderWidget";
+import ProductsWidget from "@/components/(WidgetComponents)/ProductsWidget";
 import ReservationWidget from "@/components/(WidgetComponents)/ReservationWidget";
 import WidgetContainer from "@/components/(WidgetComponents)/WidgetContainer";
 import { useParams } from "next/navigation";
@@ -17,6 +18,7 @@ const AdminDashBoard = () => {
       <WidgetContainer>
         <CalenderWidget />
         <ReservationWidget />
+        <ProductsWidget />
       </WidgetContainer>
     </div>
   );

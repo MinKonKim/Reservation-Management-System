@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { DragDropContext, Draggable, DropResult } from "react-beautiful-dnd";
 import { StrictModeDroppable } from "../StrictModeDroppable/StrictModeDroppable";
+import WidgetLayout from "../WidgetLayout";
 interface WidgetContainerProps {
   children: React.ReactNode[];
 }
@@ -26,7 +27,7 @@ const WidgetContainer = ({ children }: WidgetContainerProps) => {
       >
         {(provided) => (
           <div
-            className="widget-container grid grid-cols-2 gap-4 p-4 bg-gray-100 rounded-lg shadow-lg"
+            className="widget-container h-[80vh] grid grid-cols-4 gap-4 p-4 bg-gray-100 rounded-lg shadow-lg"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -37,13 +38,14 @@ const WidgetContainer = ({ children }: WidgetContainerProps) => {
                 index={index}
               >
                 {(provided) => (
+                  // TODO 위젯 레이아웃 만들기.
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     className="widget-item"
                   >
-                    {widget}
+                    <WidgetLayout>{widget}</WidgetLayout>
                   </div>
                 )}
               </Draggable>

@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/(StyledComponents)/ButtonComponent";
 import { useRouter } from "next/navigation";
 
 const Home = () => {
@@ -10,9 +11,8 @@ const Home = () => {
   };
   return (
     <div className="flex h-screen items-center justify-center ">
-      <button onClick={handleClick} className="p-5 bg-blue-600 rounded-lg">
-        DB연결확인버튼
-      </button>
+      <Button onClick={() => router.push("/auth/login")}>로그인</Button>
+      <Button onClick={handleClick}>회원가입</Button>
     </div>
   );
 };
