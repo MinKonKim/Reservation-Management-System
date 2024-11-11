@@ -24,7 +24,7 @@ export type ProductType = {
   minGuests: number; // 최소 예약 가능 인원
   maxGuests: number; // 최대 예약 가능 인원
   ageRestriction: number; // 연령 제한 (예: 18세 이상)
-  images: string[]; // 상품 이미지 URL 목록
+  images?: string[]; // 상품 이미지 URL 목록
   createdAt: firebase.firestore.Timestamp; // 상품 등록 일자
   updatedAt: firebase.firestore.Timestamp; // 상품 수정 일자
   status: "active" | "inactive" | "draft"; // 상품 상태 (예: 활성, 비활성, 임시 저장)

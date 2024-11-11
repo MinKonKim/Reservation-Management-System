@@ -55,6 +55,7 @@ const updateUser = async (user: UserType) => {
   return NextResponse.json({ message: "사용자 정보 업데이트 성공" });
 };
 
+// 유저 정보 가져오기
 export const GET = async () => {
   try {
     return await getUser();
@@ -68,6 +69,7 @@ export const GET = async () => {
   }
 };
 
+// 유저 생성
 export const POST = async (req: Request) => {
   try {
     const data: UserType = await req.json();
@@ -81,6 +83,7 @@ export const POST = async (req: Request) => {
   }
 };
 
+// 유저 정보 변경
 export const PUT = async (req: Request) => {
   try {
     const data: UserType = await req.json();

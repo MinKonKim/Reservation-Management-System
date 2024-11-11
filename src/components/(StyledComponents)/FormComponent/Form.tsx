@@ -34,7 +34,7 @@ function CreateForm({ fields, onSubmit }: AutoFormProps) {
             <Input
               {...register(key)}
               type={key.includes("password") ? "password" : "text"}
-              placeholder={fields[key]}
+              placeholder={String(fields[key]).replace(/^password\s*/, "")}
               isFull
             />
           ) : typeof fields[key] === "boolean" ? (
@@ -54,7 +54,7 @@ function CreateForm({ fields, onSubmit }: AutoFormProps) {
               {...register(key)}
               className="w-full p-2 border rounded-lg"
               rows={4}
-              placeholder="Enter text here..."
+              placeholder={String(fields[key]).replace(/^textarea\s*/, "")}
             />
           ) : String(fields[key]).includes("file") ? (
             <Input
