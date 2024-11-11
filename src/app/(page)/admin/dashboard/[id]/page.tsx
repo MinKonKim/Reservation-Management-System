@@ -12,12 +12,16 @@ const AdminDashBoard = () => {
   const { id } = useParams();
   const { user } = useUserStore();
   const router = useRouter();
+
   useEffect(() => {
     // 어드민이 아니면 접근 불가.
     if (!user.is_admin) {
       router.push("/user/dashboard");
     }
+
+    console.log(id);
   }, [user, router]);
+
   return (
     <div className="p-5 bg-Prime-400 h-screen">
       <h1 className="text-2xl font-bold mb-4">어드민 대시보드</h1>

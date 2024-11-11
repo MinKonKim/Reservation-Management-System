@@ -1,5 +1,6 @@
 import { db } from "@/firebase/firebase";
 import { ProductType } from "@/types/firebase.type";
+import { ProductInputType } from "@/types/product";
 import { handleError } from "@/utils/errorHandler";
 import {
   collection,
@@ -8,18 +9,22 @@ import {
   query,
   serverTimestamp,
   setDoc,
+  Timestamp,
   updateDoc,
   where,
 } from "@firebase/firestore";
 import { NextResponse } from "next/server";
 
-const createProduct = async (product: ProductType) => {
+const createProduct = async (product: ProductInputType) => {
   const docRef = doc(collection(db, "products"));
   await setDoc(docRef, {
     ...product,
     id: docRef.id,
+    availableFrom: Timestamp.fromDate(product.availableFrom),
+    availableTo: Timestamp.fromDate(product.availableTo),
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
+    status: product.status!,
   });
 
   return NextResponse.json(
@@ -94,8 +99,11 @@ export const PUT = async (req: Request) => {
 
 export const GET = async (req: Request) => {
   try {
-    const userId = await req.json();
-    return await getUserProducts(userId);
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+    if (userId) {
+      return await getUserProducts(userId);
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     handleError(error);

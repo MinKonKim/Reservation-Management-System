@@ -19,8 +19,8 @@ export type ProductType = {
   description: string; // 상품 설명
   category?: string; // 상품 카테고리 (예: 숙박, 투어 등)
   price: number; // 상품 가격
-  availableFrom: firebase.firestore.Timestamp; // 예약 가능 시작일
-  availableTo: firebase.firestore.Timestamp; // 예약 가능 종료일
+  availableFrom: Date; // 예약 가능 시작일
+  availableTo: Date; // 예약 가능 종료일
   minGuests: number; // 최소 예약 가능 인원
   maxGuests: number; // 최대 예약 가능 인원
   ageRestriction: number; // 연령 제한 (예: 18세 이상)
