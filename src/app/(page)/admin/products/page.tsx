@@ -1,34 +1,31 @@
 "use client";
 import Button from "@/components/(StyledComponents)/ButtonComponent";
-import { useUserProducts } from "@/hooks/queries/produdcts/fetchProductList";
 import useUserStore from "@/stores/userStore";
 import { useRouter } from "next/navigation";
 
-// 상품 내역 보이는 곳.
 const ProductsListPage = () => {
   const { user } = useUserStore();
-
-  const { data, isLoading, isError, error } = useUserProducts(user.id!);
   const router = useRouter();
+
+  if (!user.id) {
+    return <p>사용자 정보가 없습니다. 다시 로그인해 주세요.</p>;
+  }
+
   const goToCreateProduct = () => {
     router.push("/admin/products/create");
   };
 
-  if (isLoading) return <p>로딩중..</p>;
-  if (isError) return <p>오류가 발생함: {String(error)}</p>;
-
-  // TODO 임의로 만든 Button 부분 다르게 수정해야함.
   return (
     <div>
-      {Array.isArray(data) && data.length > 0 ? (
+      {/* {Array.isArray(data) && data.length > 0 ? (
         <ul>
           {data.map((product) => (
             <li key={product.id}>{product.name}</li>
           ))}
         </ul>
       ) : (
-        <p> 상품이 없습니다.</p>
-      )}
+        <p>상품이 없습니다.</p>
+      )} */}
       <Button onClick={goToCreateProduct}>새 상품 만들기</Button>
     </div>
   );
