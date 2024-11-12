@@ -20,7 +20,7 @@ const AdminDashBoard = () => {
     }
 
     console.log(id);
-  }, [user, router]);
+  }, []);
 
   return (
     <div className="p-5 bg-Prime-400 h-screen">
