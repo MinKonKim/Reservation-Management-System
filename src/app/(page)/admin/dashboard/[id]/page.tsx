@@ -4,8 +4,7 @@ import ProductsWidget from "@/components/(WidgetComponents)/ProductsWidget";
 import ReservationWidget from "@/components/(WidgetComponents)/ReservationWidget";
 import WidgetContainer from "@/components/(WidgetComponents)/WidgetContainer";
 import useUserStore from "@/stores/userStore";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const AdminDashBoard = () => {

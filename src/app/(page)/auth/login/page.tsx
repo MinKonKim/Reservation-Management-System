@@ -1,9 +1,10 @@
 "use client";
 import CreateForm from "@/components/(StyledComponents)/FormComponent";
-import useUserStore, { userStoreType } from "@/stores/userStore";
+import useUserStore from "@/stores/userStore";
 import { FormFields } from "@/types/FormFields";
-import axios from "axios";
+import { login } from "@/utils/login";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const loginInfo = {
@@ -11,35 +12,30 @@ const LoginPage = () => {
     password: "비밀번호",
   };
 
-  const route = useRouter();
+  const router = useRouter();
   const { setUser } = useUserStore();
   const handleSubmit = async (data: FormFields) => {
-    try {
-      const { email, password } = data;
+    const { email, password } = data;
 
-      const loginData = await axios.post("/api/auth/login", {
-        email: email,
-        password: password,
-      });
-      const { uid } = loginData.data;
+    const response = await login(email as string, password as string);
 
-      const userData = await axios.get(`/api/user/${uid}`);
+    if (response.success && response.user) {
+      // 로그인 성공
 
-      // 로그인한 유저 정보를 전역으로 저장 (LocalStorage)
-      const { id, name, is_admin }: userStoreType = userData.data;
-      if (id && name && is_admin) {
-        setUser({
-          id: id,
-          name: name,
-          is_admin: is_admin,
-        });
-      }
+      setUser(response.user);
 
-      route.push(`/${is_admin ? "admin" : "user"}/dashboard/${uid}`);
-    } catch (error) {
-      console.log(error);
+      router.push(
+        `/${response.user.is_admin ? "admin" : "user"}/dashboard/${
+          response.user.id
+        }`
+      );
+    } else {
+      // 로그인 실패
+      console.error(response.message);
     }
   };
+
+  useEffect(() => {}, [router]);
 
   return (
     <div>

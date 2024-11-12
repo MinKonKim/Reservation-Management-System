@@ -3,7 +3,9 @@ type WidgetLayoutProps = {
 };
 
 const WidgetLayout = ({ children }: WidgetLayoutProps) => {
-  return <div className="shadow-lg">{children}</div>;
+  return (
+    <div className="shadow-lg flex justify-center items-center">{children}</div>
+  );
 };
 
 export default WidgetLayout;
