@@ -5,7 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = ({ children, isFull, ...props }) => {
   return (
     <button
-      className={`p-4 m-1 rounded-lg bg-indigo-500 text-white hover:bg-indigo-700 ${
+      className={`p-4 m-1 rounded-lg bg-Prime-500 text-white hover:bg-Prime-700 ${
         isFull ? "w-full" : ""
       }`}
       {...props}

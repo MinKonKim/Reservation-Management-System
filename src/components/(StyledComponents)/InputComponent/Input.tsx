@@ -13,8 +13,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     // type에 따른 스타일 조건부 지정
     const typeStyles =
       type === "checkbox"
-        ? "w-5 h-5 accent-indigo-600 cursor-pointer" // 체크박스 스타일링
-        : "border-indigo-600";
+        ? "w-5 h-5 accent-Prime-600 cursor-pointer" // 체크박스 스타일링
+        : "border-Prime-600";
 
     return (
       <input

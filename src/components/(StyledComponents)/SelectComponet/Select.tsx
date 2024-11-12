@@ -11,7 +11,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <select
         ref={ref}
-        className={`p-3 m-1 border-solid border-2 border-indigo-600 rounded-lg ${
+        className={`p-3 m-1 border-solid border-2 border-Prime-600 rounded-lg ${
           isFull ? "w-full" : ""
         } ${className} cursor-pointer`}
         {...props}
