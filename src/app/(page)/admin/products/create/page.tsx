@@ -20,6 +20,7 @@ const CreateProductPage = () => {
   const handleSubmit = async (data: FormFields) => {
     const response = await axios.post("/api/products", { data });
     console.log(response);
+    ``;
   };
 
   return (

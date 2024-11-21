@@ -6,7 +6,6 @@ import Button from "../ButtonComponent";
 import Input from "../InputComponent";
 import Select from "../SelectComponet";
 
-// TODO TextArea 컴포넌트 만들기
 // TODO Form 컴포넌트에서 placeholder가 굳이 필요한지 정하기
 
 interface AutoFormProps {
@@ -50,6 +49,7 @@ function CreateForm({ fields, onSubmit }: AutoFormProps) {
               isFull
             />
           ) : String(fields[key]).includes("textarea") ? (
+            // TODO TextArea 컴포넌트 만들기
             <textarea
               {...register(key)}
               className="w-full p-2 border rounded-lg"

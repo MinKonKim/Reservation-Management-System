@@ -38,7 +38,6 @@ const WidgetContainer = ({ children }: WidgetContainerProps) => {
                 index={index}
               >
                 {(provided) => (
-                  // TODO 위젯 레이아웃 만들기.
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
