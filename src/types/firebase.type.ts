@@ -6,8 +6,8 @@ export type UserType = {
   email: string; // 사용자 이메일(고유 값)
   password: string; // 비밀번호 (Firebase Auth 사용 시 필요 없을 수 있음)
   address: string;
-  is_admin?: boolean; // 어드민 판별 true : 어드민  false : 유저
-  phone_number: string;
+  isAdmin?: boolean; // 어드민 판별 true : 어드민  false : 유저
+  phoneNumber: string;
   createdAt?: firebase.firestore.Timestamp; // 사용자 등록 일자
   updatedAt?: firebase.firestore.Timestamp; // 사용자 수정 일자
 };

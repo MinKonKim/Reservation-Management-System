@@ -7,7 +7,8 @@ type FieldType =
   | "checkbox"
   | "textarea"
   | "select"
-  | "group";
+  | "group"
+  | "string";
 
 // 공통 필드 속성
 interface BaseField {
@@ -18,7 +19,7 @@ interface BaseField {
 
 // 개별 필드 타입에 따른 `defaultValue`
 interface TextOrNumberField extends BaseField {
-  type: "text" | "password" | "number";
+  type: "text" | "password" | "number" | "string";
   defaultValue?: string | number; // 텍스트와 숫자는 문자열 또는 숫자 가능
 }
 

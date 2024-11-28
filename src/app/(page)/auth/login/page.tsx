@@ -2,12 +2,13 @@
 "use client";
 import CreateForm from "@/components/(StyledComponents)/FormComponent";
 import useUserStore from "@/stores/userStore";
+import { FormFields } from "@/types/FormFields";
 import { login } from "@/utils/login";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const LoginPage = () => {
-  const loginInfo = {
+  const loginInfo: FormFields = {
     email: {
       label: "이메일",
       type: "text",

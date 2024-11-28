@@ -1,23 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormFields } from "@/types/FormFields";
 import { generateZodSchema } from "@/utils/generateZodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Path, useForm } from "react-hook-form";
 import Button from "../ButtonComponent";
 import Input from "../InputComponent";
 import Select from "../SelectComponet";
 
-interface AutoFormProps {
+interface CreateFormProps<T> {
   fields: FormFields;
-  onSubmit: (data: FormFields) => void; // onSubmit 함수 타입 정의
+  onSubmit: (data: T) => void; // 제네릭을 사용해 데이터 타입을 유연하게 설정
 }
 
-const CreateForm = ({ fields, onSubmit }: AutoFormProps) => {
+const CreateForm = <T extends Record<string, any>>({
+  fields,
+  onSubmit,
+}: CreateFormProps<T>) => {
   const schema = generateZodSchema(fields); // Zod로 유효성 검사 스키마 생성
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<T>({
     resolver: zodResolver(schema),
   });
 
@@ -36,9 +40,9 @@ const CreateForm = ({ fields, onSubmit }: AutoFormProps) => {
                     {subField.label}
                   </label>
                   <Input
-                    {...register(`${key}-${idx}`)}
+                    {...register(`${key}.${idx}` as Path<T>)}
                     type={subField.type}
-                    defaultValue={subField.defaultValue as string}
+                    value={subField.defaultValue as string}
                     className="w-full"
                   />
                 </div>
@@ -53,24 +57,24 @@ const CreateForm = ({ fields, onSubmit }: AutoFormProps) => {
             <label className="block text-gray-700 mb-1">{field.label}</label>
             {field.type === "textarea" ? (
               <textarea
-                {...register(key)}
+                {...register(key as Path<T>)}
                 className="w-full p-2 border rounded-lg"
                 rows={4}
                 placeholder={field.placeholder}
-                defaultValue={field.defaultValue}
+                value={field.defaultValue}
               />
             ) : field.type === "select" ? (
               <Select
-                {...register(key)}
+                {...register(key as Path<T>)}
                 options={field.options || []}
-                defaultValue={field.defaultValue}
+                value={field.defaultValue}
               />
             ) : (
               <Input
-                {...register(key)}
+                {...register(key as Path<T>)}
                 type={field.type}
                 placeholder={field.placeholder}
-                defaultValue={field.defaultValue as string}
+                value={field.defaultValue as string}
                 className="w-full"
               />
             )}

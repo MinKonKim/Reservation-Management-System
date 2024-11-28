@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import CreateForm from "@/components/(StyledComponents)/FormComponent";
 import { UserType } from "@/types/firebase.type";
 import { FormFields } from "@/types/FormFields";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 const SignupPage = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   const basicInfo: FormFields = {
     name: {
@@ -52,37 +51,38 @@ const SignupPage = () => {
     },
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleFormSubmit = async (data: Record<string, any>) => {
+  const handleSubmit = async (data: Record<string, any>) => {
     try {
+      console.log("버튼 클릭");
       const { email, password, name, address, phoneNumber, role } = data;
-      const userCredential = await axios.post("/api/auth/signup", {
-        email: email,
-        password: password,
-      });
-
+      // const userCredential = await axios.post("/api/auth/signup", {
+      //   email: email,
+      //   password: password,
+      // });
+      console.log("email", email);
       const userData: UserType = {
-        id: userCredential.data.uid,
+        //id: userCredential.data.uid,
         email,
         password,
         address,
-        phone_number: phoneNumber,
-        is_admin: role === "Admin" ? true : false,
+        phoneNumber,
+        isAdmin: role === "Admin" ? true : false,
         name,
       };
-      const response = await axios.post("/api/auth/user", { userData });
+      console.log("유저 정보:", userData);
+      // const response = await axios.post("/api/auth/user", { userData });
 
-      // 성공하면 Login 페이지로 이동
-      if (response.status === 200) {
-        router.push("/auth/login");
-      } else {
-        console.error("회원 정보 저장에 실패했습니다.");
-      }
+      // // 성공하면 Login 페이지로 이동
+      // if (response.status === 200) {
+      //   router.push("/auth/login");
+      // } else {
+      //   console.error("회원 정보 저장에 실패했습니다.");
+      // }
     } catch (error) {
       console.log("회원가입중 오류 발생 :", error);
     }
   };
-  return <CreateForm fields={basicInfo} onSubmit={handleFormSubmit} />;
+  return <CreateForm fields={basicInfo} onSubmit={handleSubmit} />;
 };
 
 export default SignupPage;
