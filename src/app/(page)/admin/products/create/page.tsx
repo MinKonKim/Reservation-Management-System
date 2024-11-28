@@ -4,17 +4,68 @@ import axios from "axios";
 
 const CreateProductPage = () => {
   const productInfo: FormFields = {
-    name: "상품 이름", // 상품 이름
-    description: "textarea 상품 설명", // 상품 설명
-    //category?: string, // 상품 카테고리 (예: 숙박, 투어 등)
-    price: 0, // 상품 가격
-    minGuests: 0, // 최소 예약 가능 인원
-    maxGuests: 0, // 최대 예약 가능 인원
-    ageRestriction: 0, // 연령 제한 (예: 18세 이상)
-    //images: [], // 상품 이미지 URL 목록
-    availableFrom: new Date(),
-    availableTo: new Date(),
-    status: ["active", "inactive", "draft"], // 상품 상태 (예: 활성, 비활성, 임시 저장)
+    name: {
+      label: "상품 이름",
+      type: "text",
+      placeholder: "상품 이름을 입력해주세요.",
+      defaultValue: "",
+    },
+    description: {
+      label: "상품 설명",
+      type: "textarea",
+      placeholder: "상품 설명을 입력해주세요.",
+      defaultValue: "",
+    },
+    price: {
+      label: "상품 가격",
+      type: "number",
+      placeholder: "상품 가격을 입력해주세요.",
+      defaultValue: 0,
+    },
+    ageRestriction: {
+      label: "연령 제한",
+      type: "number",
+      placeholder: "연령 제한을 입력해주세요. (예: 18세 이상)",
+      defaultValue: 0,
+    },
+    availbaleGuests: {
+      type: "group",
+      fields: [
+        {
+          label: "최소 예약 가능 인원",
+          type: "number",
+          placeholder: "최소 예약 가능 인원을 입력해주세요.",
+          defaultValue: 0,
+        },
+        {
+          label: "최대 예약 가능 인원",
+          type: "number",
+          placeholder: "최대 예약 가능 인원을 입력해주세요.",
+          defaultValue: 0,
+        },
+      ],
+    },
+    availableDates: {
+      type: "group",
+      fields: [
+        {
+          label: "예약 가능 시작일",
+          type: "date",
+          defaultValue: new Date(),
+        },
+        {
+          label: "예약 가능 종료일",
+          type: "date",
+          defaultValue: new Date(),
+        },
+      ],
+    },
+    status: {
+      label: "상품 상태",
+      type: "select",
+      options: ["active", "inactive", "draft"],
+      defaultValue: "active",
+    },
   };
 
   const handleSubmit = async (data: FormFields) => {

@@ -1,23 +1,33 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import CreateForm from "@/components/(StyledComponents)/FormComponent";
 import useUserStore from "@/stores/userStore";
-import { FormFields } from "@/types/FormFields";
 import { login } from "@/utils/login";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const LoginPage = () => {
   const loginInfo = {
-    email: "이메일",
-    password: "비밀번호",
+    email: {
+      label: "이메일",
+      type: "text",
+      placeholder: "이메일",
+      defaultValue: "",
+    },
+    password: {
+      label: "비밀번호",
+      type: "password",
+      placeholder: "비밀번호",
+      defaultValue: "",
+    },
   };
 
   const router = useRouter();
   const { setUser } = useUserStore();
-  const handleSubmit = async (data: FormFields) => {
+  const handleSubmit = async (data: Record<string, any>) => {
     const { email, password } = data;
 
-    const response = await login(email as string, password as string);
+    const response = await login(email, password);
 
     if (response.success && response.user) {
       // 로그인 성공
