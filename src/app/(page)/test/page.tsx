@@ -1,7 +1,9 @@
 "use client";
 
+// Form 컴포넌트 사용법
+
 import Form from "@/components/(StyledComponents)/FormComponent/Form";
-import { FormFields } from "@/types/formFiled";
+import { FormFields, Inputs } from "@/types/formFiled";
 
 const TestPage = () => {
   const fields: FormFields = [
@@ -39,9 +41,16 @@ const TestPage = () => {
       ],
     },
   ];
+
+  const handelSubmit = (data: Inputs) => {
+    console.log("폼 데이터", data);
+
+    //TODO : 로직 작성
+  };
+
   return (
     <div>
-      <Form fields={fields} />
+      <Form fields={fields} onSubmit={handelSubmit} />
     </div>
   );
 };

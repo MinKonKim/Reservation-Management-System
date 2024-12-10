@@ -1,47 +1,32 @@
-import { FormFields } from "@/types/formFiled";
-import { SubmitHandler, useForm } from "react-hook-form";
-import Input from "../InputComponent";
-
-type Inputs = Record<string, string | number | boolean | []>;
+import { FormField, Inputs } from "@/types/formFiled";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import FieldRenderer from "./FieldRenderer";
 
 interface FormProps {
-  fields: FormFields;
+  fields: FormField[];
+  onSubmit: SubmitHandler<Inputs>;
 }
 
-const Form = ({ fields }: FormProps) => {
-  const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+const Form = ({ fields, onSubmit }: FormProps) => {
+  const methods = useForm<Inputs>();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      {fields.map((field, index) => {
-        if (field.type === "group" && field.group) {
-          const groupfields = field.group;
-          return (
-            <div key={`${field.name}-${index}`}>
-              {groupfields.map((gfield) => (
-                <Input
-                  key={gfield.name}
-                  type={gfield.type}
-                  {...register(gfield.name, { required: gfield.required })}
-                  placeholder={gfield.placeholder}
-                />
-              ))}
-            </div>
-          );
-        } else {
-          return (
-            <Input
-              key={field.name}
-              type={field.type}
-              {...register(field.name, { required: field.required })}
-              placeholder={field.placeholder}
-            />
-          );
-        }
-      })}
-      <input type="submit" />
-    </form>
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        className="flex flex-col gap-4"
+      >
+        {fields.map((field) => (
+          <FieldRenderer key={field.name} field={field} />
+        ))}
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        >
+          Submit
+        </button>
+      </form>
+    </FormProvider>
   );
 };
 

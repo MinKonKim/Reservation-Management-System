@@ -18,6 +18,8 @@ export type FormField = {
 
 export type FormFields = FormField[];
 
+export type Inputs = Record<string, string | number | boolean | []>;
+
 /*
   Record :
   - key 가 고유해야 하고, 이를 기반으로 필드를 관리하려면 Record가 적합
