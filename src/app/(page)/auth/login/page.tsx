@@ -2,7 +2,7 @@
 "use client";
 import CreateForm from "@/components/(StyledComponents)/FormComponent";
 import useUserStore from "@/stores/userStore";
-import { FormFields } from "@/types/FormFields";
+import { FormFields } from "@/types/formFiled";
 import { login } from "@/utils/login";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

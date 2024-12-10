@@ -1,5 +1,5 @@
 import CreateForm from "@/components/(StyledComponents)/FormComponent";
-import { FormFields } from "@/types/FormFields";
+import { FormFields } from "@/types/formFiled";
 import axios from "axios";
 
 const CreateProductPage = () => {

@@ -2,7 +2,7 @@
 "use client";
 import CreateForm from "@/components/(StyledComponents)/FormComponent";
 import { UserType } from "@/types/firebase.type";
-import { FormFields } from "@/types/FormFields";
+import { FormFields } from "@/types/formFiled";
 const SignupPage = () => {
   // const router = useRouter();
 

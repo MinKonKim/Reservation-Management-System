@@ -1,4 +1,4 @@
-import { FormFields } from "./FormFields";
+import { FormFields } from "./formFiled";
 
 export type UserInputType = {
   name?: string;
