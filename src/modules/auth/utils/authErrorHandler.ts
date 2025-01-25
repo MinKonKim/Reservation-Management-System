@@ -1,4 +1,4 @@
-import { isFirebaseError } from "@/utils/isFirebaseError";
+import { isFirebaseError } from "@/shared/utils/isFirebaseError";
 
 export const authErrorHandler = (error: unknown) => {
   if (!isFirebaseError(error)) {
