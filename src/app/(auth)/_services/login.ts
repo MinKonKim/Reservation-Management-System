@@ -11,7 +11,15 @@ interface LoginResponse {
   };
 }
 
-export const login = async (email: string, password: string) => {
+interface LoginResult {
+  success: boolean;
+  message: string;
+}
+
+export const login = async (
+  email: string,
+  password: string
+): Promise<LoginResult> => {
   try {
     const response = await axios.post<LoginResponse>("/api/login", {
       email,
@@ -21,16 +29,29 @@ export const login = async (email: string, password: string) => {
     const { data } = response;
     if (data.success && data.data) {
       Cookies.set("userToken", data.data.token, {
-        expires: 7, // 쿠키 유지 기간 (7일)
-        secure: process.env.NODE_ENV === "production", // HTTPS에서만 전송
-        sameSite: "strict", // Cross-Site Request 방지
+        expires: 7,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
       });
+
+      return {
+        success: true,
+        message: data.message,
+      };
     }
+
+    return {
+      success: false,
+      message: data.message || "로그인 실패",
+    };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error(
-      "로그인 중 에러 발생:",
-      error.response?.data?.message || error.message
-    );
+    const errorMessage = error.response?.data?.message || error.message;
+    console.error("로그인 중 에러 발생:", errorMessage);
+
+    return {
+      success: false,
+      message: errorMessage,
+    };
   }
 };
