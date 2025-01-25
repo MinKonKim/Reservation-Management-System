@@ -1,30 +1,29 @@
 import { auth } from "@/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authErrorHandler } from "../../_utils";
+import { authErrorHandler } from "../../../../modules/auth/utils";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json(); // 요청 데이터 파싱
-    const userCredential = await signInWithEmailAndPassword(
+    const { email, password } = await req.json();
+
+    const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
-    const user = userCredential.user;
-    const token = await user.getIdToken();
 
+    const user = userCredential.user;
     return NextResponse.json(
       {
         success: true,
-        message: "로그인 성공!",
+        message: "회원가입 성공!",
         data: {
           userId: user.uid,
           email: user.email,
-          token: token,
         },
       },
-      { status: 200 }
+      { status: 201 } // 새로운 사용자 등록 완료 :201
     );
   } catch (error) {
     const { errorMessage, statusCode } = authErrorHandler(error);

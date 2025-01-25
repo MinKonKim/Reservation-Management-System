@@ -16,12 +16,12 @@ interface LoginResult {
   message: string;
 }
 
-export const login = async (
+export const signin = async (
   email: string,
   password: string
 ): Promise<LoginResult> => {
   try {
-    const response = await axios.post<LoginResponse>("/api/login", {
+    const response = await axios.post<LoginResponse>("/api/auth/signin", {
       email,
       password,
     });
