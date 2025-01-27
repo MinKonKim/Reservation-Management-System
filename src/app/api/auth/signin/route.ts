@@ -3,7 +3,8 @@ import { authErrorHandler } from "@/modules/auth/utils";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export const POST = async (req: NextRequest) => {
+  console.log(auth.name);
   try {
     const { email, password } = await req.json(); // 요청 데이터 파싱
     const userCredential = await signInWithEmailAndPassword(
@@ -36,4 +37,4 @@ export async function POST(req: NextRequest) {
       { status: statusCode }
     );
   }
-}
+};

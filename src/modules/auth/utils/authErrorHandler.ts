@@ -4,7 +4,6 @@ export const authErrorHandler = (error: unknown) => {
   if (!isFirebaseError(error)) {
     return { errorMessage: "알 수 없는 오류가 발생했습니다.", statusCode: 404 };
   }
-
   switch (error.code) {
     case "auth/invalid-credential":
       return {
@@ -21,6 +20,6 @@ export const authErrorHandler = (error: unknown) => {
         statusCode: 429,
       };
     default:
-      return { errorMessage: "로그인 실패...", statusCode: 500 };
+      return { errorMessage: "서버에러...", statusCode: 500 };
   }
 };

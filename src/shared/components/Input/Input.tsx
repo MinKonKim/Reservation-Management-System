@@ -29,7 +29,7 @@ const Input = ({
         </label>
       )}
       <input
-        className={`block w-full rounded-md border-b bg-gray-100 py-3 
+        className={`block w-full rounded-md border-b bg-gray-100 py-3 px-3 
           ${borderColor(validation)} ${hoverInputStyle}
           ${focusInputStyle}`}
         {...props}

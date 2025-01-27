@@ -1,7 +1,7 @@
-import axios from "axios";
+import apiClient from "@/shared/utils/apiClient";
 import Cookies from "js-cookie";
 
-interface LoginResponse {
+interface SigninResponse {
   success: boolean;
   message: string;
   data?: {
@@ -11,7 +11,7 @@ interface LoginResponse {
   };
 }
 
-interface LoginResult {
+interface SigninResult {
   success: boolean;
   message: string;
 }
@@ -19,9 +19,9 @@ interface LoginResult {
 export const signin = async (
   email: string,
   password: string
-): Promise<LoginResult> => {
+): Promise<SigninResult> => {
   try {
-    const response = await axios.post<LoginResponse>("/api/auth/signin", {
+    const response = await apiClient.post<SigninResponse>("/auth/signin", {
       email,
       password,
     });
