@@ -23,9 +23,9 @@ const Input = ({
   return (
     <div className="space-y-1 min-h-[97px]">
       {label && (
-        <label className="block text-m font-medium text-gray-700">
+        <label className="block text-m font-semibold text-gray-700">
           {label}
-          <span className={isRequired(required)}>*</span>
+          {required && <span className={isRequired(required)}>*</span>}
         </label>
       )}
       <input

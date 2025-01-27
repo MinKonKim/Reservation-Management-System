@@ -22,7 +22,7 @@ const SignupPage = () => {
   return (
     <div className="w-full mx-2">
       {/* TODO: 각각의 입력마다 유효성 검사 +  UI  */}
-      <h2 className="font-semibold text-2xl ml-2 mb-4">회원가입</h2>
+      <h2 className="title-md">회원가입</h2>
       <SignupForm onSubmit={onSubmit} />
     </div>
   );

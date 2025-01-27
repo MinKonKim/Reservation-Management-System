@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .title-lg {
+    @apply text-3xl font-bold mb-4;
+  }
+
+  .title-md {
+    @apply text-2xl font-semibold mb-2;
+  }
+
+  .title-sm {
+    @apply text-xl font-medium mb-1;
+  }
+}
