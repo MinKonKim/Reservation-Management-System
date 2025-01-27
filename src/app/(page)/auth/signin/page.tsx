@@ -1,8 +1,7 @@
 "use client";
 import { SocialLoginButtons } from "@/components/signin";
 import { signin } from "@/modules/auth/services";
-import { Button, Input } from "@/shared/components";
-import TextLoading from "@/shared/components/Loading/textLoading";
+import { Button, Input, TextLoading } from "@/shared/components";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
