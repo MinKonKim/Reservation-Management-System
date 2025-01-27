@@ -1,5 +1,7 @@
 import { SocialLoginButtons } from "@/components/signin";
+import { signin } from "@/modules/auth/services";
 import { Input } from "@/shared/components";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type SigninFormType = {
@@ -9,9 +11,14 @@ type SigninFormType = {
 
 const SigninPage = () => {
   const { register, handleSubmit } = useForm<SigninFormType>();
-
-  const onSubmit: SubmitHandler<SigninFormType> = (data) => {
-    console.log(data);
+  const router = useRouter();
+  const onSubmit: SubmitHandler<SigninFormType> = async (data) => {
+    const { email, password } = data;
+    const response = await signin(email, password);
+    if (response.success) {
+      alert(response.message);
+      router.push("/");
+    }
   };
 
   return (
