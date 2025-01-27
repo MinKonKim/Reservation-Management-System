@@ -1,5 +1,10 @@
 import { InputHTMLAttributes } from "react";
-import { focusInputStyle, hoverInputStyle } from "./Input.style";
+import {
+  borderColor,
+  focusInputStyle,
+  hoverInputStyle,
+  isRequired,
+} from "./Input.style";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -15,26 +20,17 @@ const Input = ({
   required,
   ...props
 }: InputProps) => {
-  // 동적으로 테두리 색상 변경
-  const borderColor =
-    validation === undefined
-      ? "border-gray-300"
-      : validation
-      ? "border-green-500 focus:ring-green-500"
-      : "border-red-500 focus:ring-red-500";
-
-  const isRequired = required ? "text-red-500 mx-1" : "";
   return (
     <div className="space-y-1 min-h-[97px]">
       {label && (
         <label className="block text-m font-medium text-gray-700">
           {label}
-          <span className={isRequired}>*</span>
+          <span className={isRequired(required)}>*</span>
         </label>
       )}
       <input
         className={`block w-full rounded-md border-b bg-gray-100 py-3 
-          ${borderColor} ${hoverInputStyle}
+          ${borderColor(validation)} ${hoverInputStyle}
           ${focusInputStyle}`}
         {...props}
       />

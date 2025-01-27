@@ -4,9 +4,19 @@ export const focusInputStyle = `
   focus:ring-0
 `;
 
-// hover 시 처리할 유틸리티
-// (예: 테두리색 살짝 진하게, 배경 조금 더 밝게, 등등)
 export const hoverInputStyle = `
   hover:border-gray-300
   hover:bg-gray-50
 `;
+
+export const borderColor = (validation: boolean | undefined) => {
+  return validation === undefined
+    ? "border-gray-300"
+    : validation
+    ? "border-green-500 focus:ring-green-500"
+    : "border-red-500 focus:ring-red-500";
+};
+
+export const isRequired = (required: boolean | undefined) => {
+  return required ? "text-red-500 mx-1" : "";
+};
