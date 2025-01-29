@@ -2,7 +2,7 @@
 
 import { Button } from "@/shared/components";
 import { useRoleStore } from "@/stores";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const RoleSelection = () => {
   const { setRole } = useRoleStore();
