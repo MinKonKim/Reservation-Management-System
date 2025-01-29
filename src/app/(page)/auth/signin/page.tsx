@@ -49,7 +49,7 @@ const SigninPage = () => {
       </form>
       <SocialLoginButtons />
       <Link
-        href={"/auth/signup"}
+        href={"/auth/select-role"}
         className="text-sm w-full flex justify-center py-2 text-point-700 hover:text-point-500 hover:underline-1 "
       >
         아직 회원이 아니신가요?
