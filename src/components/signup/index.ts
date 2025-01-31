@@ -1,3 +1,3 @@
+export { default as AdminInfoForm } from "./AdminInfoForm";
 export { default as SignupForm } from "./SignupForm";
-
-export * from "./signup.type";
+export { default as UserInfoForm } from "./UserInfoForm";

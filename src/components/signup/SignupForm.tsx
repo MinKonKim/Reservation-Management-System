@@ -1,6 +1,6 @@
+import { SignupFormType } from "@/modules/auth/types";
 import { Button, Input } from "@/shared/components";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { SignupFormType } from "./signup.type";
 
 interface SignupFormProps {
   onSubmit: SubmitHandler<SignupFormType>;

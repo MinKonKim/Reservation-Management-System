@@ -1,6 +1,7 @@
 "use client";
-import { SignupForm, SignupFormType } from "@/components/signup";
+import { SignupForm } from "@/components/signup";
 import { signup } from "@/modules/auth/services/signup";
+import { SignupFormType } from "@/modules/auth/types";
 import { useRoleStore } from "@/stores";
 import { redirect } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
