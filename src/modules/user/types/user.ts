@@ -12,7 +12,7 @@ export type User = {
   role: "user";
 };
 
-export type UserInfoForm = Pick<
+export type UserInfoFormType = Pick<
   User,
   "name" | "phoneNumber" | "profileImageUrl" | "gender"
 >;
