@@ -1,20 +1,14 @@
 "use client";
 
 import { UserInfoFormType } from "@/modules/user/types";
-import {
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/components";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Button, Input, InputAvatar } from "@/shared/components";
+import SelectField from "@/shared/components/Select/SelectFiled";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 const UserInfoForm = () => {
   // TODO: 유저 정보 입력하는 페이지 작성.
 
-  const { register, handleSubmit } = useForm<UserInfoFormType>();
+  const { control, register, handleSubmit } = useForm<UserInfoFormType>();
 
   const onSubmit: SubmitHandler<UserInfoFormType> = (data) => {
     console.log(data);
@@ -24,6 +18,11 @@ const UserInfoForm = () => {
     <div className="w-full m-2">
       <h2 className="title-md">유저 정보 입력</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="profileImageUrl"
+          control={control}
+          render={({ field }) => <InputAvatar {...field} />}
+        />
         <Input {...register("name")} id="name" label="이름" required />
         <Input
           {...register("phoneNumber")}
@@ -32,24 +31,19 @@ const UserInfoForm = () => {
           placeholder="ex)010-1234-1234"
           required
         />
-        <Input
-          {...register("profileImageUrl")}
-          id="profileImageUrl"
-          label="프로필 이미지"
+        <SelectField<UserInfoFormType>
+          name="gender"
+          control={control}
+          label="성별"
+          placeholder="성별 선택"
+          options={[
+            { value: "male", label: "남" },
+            { value: "female", label: "여" },
+          ]}
         />
-        {/* 성별 선택: ShadCN Select 컴포넌트 */}
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">성별</label>
-          <Select {...register("gender")}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="성별 선택" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="male">남</SelectItem>
-              <SelectItem value="female">여</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        <Button type="submit" className="mt-5" color="point" isFull>
+          가입하기
+        </Button>
       </form>
     </div>
   );

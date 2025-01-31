@@ -34,7 +34,7 @@ const SignupForm = ({ onSubmit }: SignupFormProps) => {
         required
       />
       <Button type="submit" color="point" isFull>
-        회원가입 하기
+        다음으로
       </Button>
     </form>
   );

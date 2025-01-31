@@ -10,7 +10,11 @@ const InfoFormPage = async ({ params }: { params: { role: string } }) => {
     //TODO : 잘못된 접근시, UX 적인 측면 고려
     return <p>잘못된 접근입니다.</p>;
   }
-  return <div>{role === "admin" ? <AdminInfoForm /> : <UserInfoForm />}</div>;
+  return (
+    <div className="w-full mx-2">
+      {role === "admin" ? <AdminInfoForm /> : <UserInfoForm />}
+    </div>
+  );
 };
 
 export default InfoFormPage;
