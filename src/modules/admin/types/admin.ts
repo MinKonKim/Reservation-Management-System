@@ -1,5 +1,5 @@
 export type Admin = {
-  userId: string;
+  adminId: string;
   name: string;
   email: string;
   phoneNumber?: string;

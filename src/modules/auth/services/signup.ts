@@ -1,3 +1,4 @@
+import { Result } from "@/shared/types";
 import apiClient from "@/shared/utils/apiClient";
 
 interface SignupResponse {
@@ -9,17 +10,11 @@ interface SignupResponse {
   };
 }
 
-interface SignupResult {
-  success: boolean;
-  message: string;
-}
-
 export const signup = async (
   email: string,
   password: string
-): Promise<SignupResult> => {
+): Promise<Result> => {
   try {
-    console.log("요청 데이터:", { email, password });
     const response = await apiClient.post<SignupResponse>("/auth/signup", {
       email,
       password,

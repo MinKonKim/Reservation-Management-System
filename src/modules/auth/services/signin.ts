@@ -1,3 +1,4 @@
+import { Result } from "@/shared/types";
 import apiClient from "@/shared/utils/apiClient";
 import Cookies from "js-cookie";
 
@@ -11,15 +12,10 @@ interface SigninResponse {
   };
 }
 
-interface SigninResult {
-  success: boolean;
-  message: string;
-}
-
 export const signin = async (
   email: string,
   password: string
-): Promise<SigninResult> => {
+): Promise<Result> => {
   try {
     const response = await apiClient.post<SigninResponse>("/auth/signin", {
       email,
