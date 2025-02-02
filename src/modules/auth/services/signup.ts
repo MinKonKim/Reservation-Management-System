@@ -1,43 +1,39 @@
-import { Result } from "@/shared/types";
-import apiClient from "@/shared/utils/apiClient";
-
-interface SignupResponse {
-  success: boolean;
-  message: string;
-  data: {
-    userId: string;
-    email: string;
-  };
-}
+import { auth } from "@/firebase";
+import { PromiseApiResponse } from "@/shared/types";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { SignupResponse } from "../types";
+import { authErrorHandler } from "../utils";
 
 export const signup = async (
   email: string,
   password: string
-): Promise<Result> => {
+): PromiseApiResponse<SignupResponse> => {
   try {
-    const response = await apiClient.post<SignupResponse>("/auth/signup", {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
       email,
-      password,
-    });
-    const { data } = response;
-    if (!data.success) {
-      return {
-        success: false,
-        message: data.message,
-      };
-    }
+      password
+    );
+    const user = userCredential.user;
+
+    // // 🔹 Firestore에 사용자 정보 저장
+    // await setDoc(doc(db, "users", user.uid), {
+    //   email: user.email,
+    //   role: "user",
+    //   createdAt: new Date(),
+    // });
+
     return {
       success: true,
-      message: data.message,
+      message: "회원가입 성공!",
+      data: { userId: user.uid },
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    const errorMessage = error.response?.data?.message || error.message;
-    console.error("회원가입 중 에러 발생:", errorMessage);
-
+  } catch (error: unknown) {
+    const { errorMessage, statusCode } = authErrorHandler(error);
     return {
       success: false,
       message: errorMessage,
+      data: { status: statusCode },
     };
   }
 };

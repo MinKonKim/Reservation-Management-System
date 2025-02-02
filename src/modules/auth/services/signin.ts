@@ -1,53 +1,34 @@
-import { Result } from "@/shared/types";
-import apiClient from "@/shared/utils/apiClient";
-import Cookies from "js-cookie";
+import { auth } from "@/firebase";
+import { PromiseApiResponse } from "@/shared/types";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { SigninResponse } from "../types";
+import { authErrorHandler } from "../utils";
 
-interface SigninResponse {
-  success: boolean;
-  message: string;
-  data?: {
-    userId: string;
-    email: string;
-    token: string;
-  };
-}
-
+// 🔹 로그인 서비스 함수
 export const signin = async (
   email: string,
   password: string
-): Promise<Result> => {
+): PromiseApiResponse<SigninResponse> => {
   try {
-    const response = await apiClient.post<SigninResponse>("/auth/signin", {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
       email,
-      password,
-    });
-
-    const { data } = response;
-    if (data.success && data.data) {
-      Cookies.set("userToken", data.data.token, {
-        expires: 7,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-      });
-
-      return {
-        success: true,
-        message: data.message,
-      };
-    }
+      password
+    );
+    const user = userCredential.user;
+    const token = await user.getIdToken();
 
     return {
-      success: false,
-      message: data.message || "로그인 실패",
+      success: true,
+      message: "로그인 성공!",
+      data: { userId: user.uid, token, status: 200 },
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    const errorMessage = error.response?.data?.message || error.message;
-    console.error("로그인 중 에러 발생:", errorMessage);
-
+  } catch (error: unknown) {
+    const { errorMessage, statusCode } = authErrorHandler(error);
     return {
       success: false,
       message: errorMessage,
+      data: { status: statusCode },
     };
   }
 };
