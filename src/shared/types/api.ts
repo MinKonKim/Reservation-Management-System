@@ -1,12 +1,7 @@
-export type ApiResponse = {
+export type ApiResponse<T = void> = {
   success: boolean;
   message: string;
-  data?: {
-    id: string;
-  };
+  data?: T;
 };
 
-export type Result = {
-  success: boolean;
-  message: string;
-};
+export type PromiseApiResponse<T = void> = Promise<ApiResponse<T>>;
