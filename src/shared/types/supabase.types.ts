@@ -18,7 +18,7 @@ export type Database = {
           managed_space: Json | null
           name: string | null
           phone_number: string | null
-          role: string | null
+          role: string
         }
         Insert: {
           admin_id: string
@@ -28,7 +28,7 @@ export type Database = {
           managed_space?: Json | null
           name?: string | null
           phone_number?: string | null
-          role?: string | null
+          role: string
         }
         Update: {
           admin_id?: string
@@ -38,7 +38,7 @@ export type Database = {
           managed_space?: Json | null
           name?: string | null
           phone_number?: string | null
-          role?: string | null
+          role?: string
         }
         Relationships: []
       }
@@ -226,7 +226,7 @@ export type Database = {
           name: string | null
           phone_number: string | null
           profile_image_url: string | null
-          role: string | null
+          role: string
           user_id: string
         }
         Insert: {
@@ -236,7 +236,7 @@ export type Database = {
           name?: string | null
           phone_number?: string | null
           profile_image_url?: string | null
-          role?: string | null
+          role: string
           user_id: string
         }
         Update: {
@@ -246,7 +246,7 @@ export type Database = {
           name?: string | null
           phone_number?: string | null
           profile_image_url?: string | null
-          role?: string | null
+          role?: string
           user_id?: string
         }
         Relationships: []
@@ -259,7 +259,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      roles: "USER" | "ADMIN"
     }
     CompositeTypes: {
       [_ in never]: never
