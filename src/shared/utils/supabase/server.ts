@@ -1,3 +1,4 @@
+import { Database } from "@/shared/types";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 

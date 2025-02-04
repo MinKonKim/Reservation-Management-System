@@ -1,8 +1,7 @@
-import { auth } from "@/firebase";
 import { PromiseApiResponse } from "@/shared/types";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { serverClient } from "@/shared/utils/supabase";
 import { SigninResponse } from "../types";
-import { authErrorHandler } from "../utils";
+import { handleAuthError } from "../utils";
 
 // 🔹 로그인 서비스 함수
 export const signin = async (
@@ -10,25 +9,34 @@ export const signin = async (
   password: string
 ): PromiseApiResponse<SigninResponse> => {
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    const token = await user.getIdToken();
+    const supabase = await serverClient();
 
-    return {
-      success: true,
-      message: "로그인 성공!",
-      data: { userId: user.uid, token, status: 200 },
-    };
+    const {
+      data: { user, session },
+      error,
+    } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (user && session.access_token && !error) {
+      return {
+        success: true,
+        message: "로그인 성공!",
+        data: { userId: user.id, token: session.access_token, status: 200 },
+      };
+    } else {
+      return {
+        success: false,
+        message: "로그인 실패!",
+      };
+    }
   } catch (error: unknown) {
-    const { errorMessage, statusCode } = authErrorHandler(error);
+    const { message, status } = handleAuthError(error);
     return {
       success: false,
-      message: errorMessage,
-      data: { status: statusCode },
+      message: message,
+      data: { status },
     };
   }
 };
