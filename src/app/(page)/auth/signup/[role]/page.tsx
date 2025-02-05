@@ -1,8 +1,10 @@
 import dynamic from "next/dynamic";
 const AdminInfoForm = dynamic(
-  () => import("@/components/signup/AdminInfoForm")
+  () => import("@/components/infoForm/AdminInfoForm")
 );
-const UserInfoForm = dynamic(() => import("@/components/signup/UserInfoForm"));
+const UserInfoForm = dynamic(
+  () => import("@/components/infoForm/UserInfoForm")
+);
 
 const InfoFormPage = async ({ params }: { params: { role: string } }) => {
   const role = (await params).role;

@@ -1,9 +1,8 @@
 "use client";
 import { SocialLoginButtons } from "@/components/signin";
-import { signin } from "@/modules/auth/services";
 import { Button, Input, TextLoading } from "@/shared/components";
+import { apiClient } from "@/shared/utils";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -15,16 +14,11 @@ type SigninFormType = {
 const SigninPage = () => {
   const { register, handleSubmit } = useForm<SigninFormType>();
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   const onSubmit: SubmitHandler<SigninFormType> = async (data) => {
     setIsLoading(true);
-    const { email, password } = data;
-    const response = await signin(email, password);
+    const response = await apiClient.post("/auth/signin", { ...data });
+    console.log(response);
     setIsLoading(false);
-    if (response.success) {
-      alert(response.message);
-      router.push("/");
-    }
   };
 
   return (
