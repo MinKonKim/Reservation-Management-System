@@ -1,39 +1,39 @@
-import { auth } from "@/firebase";
 import { PromiseApiResponse } from "@/shared/types";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { SignupResponse } from "../types";
-import { authErrorHandler } from "../utils";
+import { handleAuthError } from "../utils";
 
 export const signup = async (
   email: string,
-  password: string
+  password: string,
+  supabase: SupabaseClient
 ): PromiseApiResponse<SignupResponse> => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.signUp({
       email,
-      password
-    );
-    const user = userCredential.user;
-
-    // // 🔹 Firestore에 사용자 정보 저장
-    // await setDoc(doc(db, "users", user.uid), {
-    //   email: user.email,
-    //   role: "user",
-    //   createdAt: new Date(),
-    // });
-
-    return {
-      success: true,
-      message: "회원가입 성공!",
-      data: { userId: user.uid },
-    };
+      password,
+    });
+    if (!error && user) {
+      return {
+        success: true,
+        message: "회원가입 성공!",
+        data: { userId: user.id },
+      };
+    } else {
+      return {
+        success: false,
+        message: error?.message as string,
+      };
+    }
   } catch (error: unknown) {
-    const { errorMessage, statusCode } = authErrorHandler(error);
+    const { message, status } = handleAuthError(error);
     return {
       success: false,
-      message: errorMessage,
-      data: { status: statusCode },
+      message: message,
+      data: { status },
     };
   }
 };

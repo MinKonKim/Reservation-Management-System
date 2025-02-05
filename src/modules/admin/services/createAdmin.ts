@@ -3,10 +3,6 @@ import { Admin } from "../types";
 
 // 🔹 Admin 데이터 저장 함수
 const createAdmin = async (info: Admin) => {
-  //TODO : 로직추가
-  /** 1. info를 정제할 수 있는 로직이 필요한가?
-   *  2. 프롭스로 어떤 정보까지 받아 올 수 있는가?
-   */
   try {
     const response = await apiClient.post("/info/admin", { ...info });
     const { data } = response;

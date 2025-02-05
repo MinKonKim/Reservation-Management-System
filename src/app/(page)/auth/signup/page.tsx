@@ -1,22 +1,14 @@
 "use client";
 import { SignupForm } from "@/components/signup";
-import { signup } from "@/modules/auth/services/signup";
 import { SignupFormType } from "@/modules/auth/types";
-import { useRoleStore } from "@/stores";
-import { redirect } from "next/navigation";
+import { apiClient } from "@/shared/utils";
 import { SubmitHandler } from "react-hook-form";
 
 const SignupPage = () => {
-  const { role } = useRoleStore();
   const onSubmit: SubmitHandler<SignupFormType> = async (data) => {
-    const { email, password } = data;
-    const response = await signup(email, password);
-    if (response.success) {
-      redirect(`/auth/signup/${role}`);
-    } else {
-      // TODO:실패 시 사용자에게 알림 (예: 알림 UI 제작)
-      alert(response.message);
-    }
+    const response = await apiClient.post("/auth/signup", { ...data });
+    // user 인지 , admin 인지 구별하고 role을 부여해 , users 테이블 까지 넣어주는 것이 원칙.
+    console.log(response);
   };
 
   return (

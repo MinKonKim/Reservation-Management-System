@@ -1,2 +1,2 @@
-export * from "./authErrorHandler";
+export * from "./handleAuthError";
 export * from "./setCookie";
