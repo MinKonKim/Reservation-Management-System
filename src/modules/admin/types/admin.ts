@@ -1,18 +1,6 @@
-export type Admin = {
-  adminId: string;
-  name: string;
-  email: string;
-  phoneNumber?: string;
-  profileImageUrl?: string;
-  companyName?: string;
-  adminCode?: string;
-  // adminRole: "super-admin" | "manager" | "staff";
-  managedSpaces: string[]; // 공간 ID 리스트
-  signupDate: Date;
-  role: "admin";
-};
+import { Database } from "@/shared/types";
 
-export type AdminInfoFormType = Pick<
-  Admin,
-  "name" | "phoneNumber" | "companyName" | "adminCode"
->;
+type AdminTable = Database["public"]["Tables"]["admins"];
+
+export type AdminInfoType = AdminTable["Row"];
+export type InsertAdminType = AdminTable["Insert"];
