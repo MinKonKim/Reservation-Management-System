@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import { Options } from "./node_modules/deepmerge/index.d";
 
 const nextConfig: NextConfig = {
   webpack(config) {
