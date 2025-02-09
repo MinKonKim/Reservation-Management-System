@@ -1,12 +1,11 @@
 import { PromiseApiResponse } from "@/shared/types";
-import { SupabaseClient } from "@supabase/supabase-js";
+import { supabase } from "@/shared/utils/supabase";
 import { SignupResponse } from "../types";
 import { handleAuthError } from "../utils";
 
 export const signup = async (
   email: string,
-  password: string,
-  supabase: SupabaseClient
+  password: string
 ): PromiseApiResponse<SignupResponse> => {
   try {
     const {

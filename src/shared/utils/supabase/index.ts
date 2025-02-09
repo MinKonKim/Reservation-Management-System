@@ -1,3 +1,3 @@
-export { default as browserClient } from "./client";
+export { default as supabase } from "./client";
 
-export { default as serverClient } from "./server";
+// export { default as serverClient } from "./server";

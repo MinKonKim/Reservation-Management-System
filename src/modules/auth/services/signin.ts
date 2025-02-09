@@ -1,13 +1,12 @@
 import { PromiseApiResponse } from "@/shared/types";
-import { SupabaseClient } from "@supabase/supabase-js";
+import { supabase } from "@/shared/utils/supabase";
 import { SigninResponse } from "../types";
 import { handleAuthError } from "../utils";
 
 // 🔹일반반 로그인 서비스 함수
 export const signin = async (
   email: string,
-  password: string,
-  supabase: SupabaseClient
+  password: string
 ): PromiseApiResponse<SigninResponse> => {
   try {
     const {

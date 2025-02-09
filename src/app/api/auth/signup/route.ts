@@ -1,12 +1,10 @@
 import { signup } from "@/modules/auth/services";
-import { serverClient } from "@/shared/utils/supabase";
 import { NextRequest, NextResponse } from "next/server";
 export const POST = async (req: NextRequest) => {
   try {
-    const supabase = await serverClient();
     const { email, password } = await req.json();
 
-    const response = await signup(email, password, supabase);
+    const response = await signup(email, password);
     return NextResponse.json(response);
   } catch (error: unknown) {
     return NextResponse.json(

@@ -1,7 +1,6 @@
-import { serverClient } from "@/shared/utils/supabase";
+import { supabase } from "@/shared/utils/supabase";
 
 export const googleSignup = async () => {
-  const supabase = await serverClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
   });

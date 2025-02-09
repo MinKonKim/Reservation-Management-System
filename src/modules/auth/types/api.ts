@@ -5,7 +5,6 @@ export type SignupFormType = {
 };
 
 export type SignupResponse = {
-  success: boolean;
   userId?: string;
   status?: number;
   url?: string;

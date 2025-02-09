@@ -1,10 +1,9 @@
 import { handleAuthError } from "@/modules/auth/utils";
-import { serverClient } from "@/shared/utils/supabase";
+import { supabase } from "@/shared/utils/supabase";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
   try {
-    const supabase = await serverClient();
     // 🔹 Supabase에서 로그인 세션 가져오기
     const { data, error } = await supabase.auth.getSession();
 

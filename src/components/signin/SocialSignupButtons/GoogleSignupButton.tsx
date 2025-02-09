@@ -1,12 +1,13 @@
 import { useGoogleSignup } from "@/modules/auth/hook/OAuth";
+import { googleSignup } from "@/modules/auth/services/social";
 import { GoogleIcon } from "@/shared/Icons";
 const GoogleSignupButton = () => {
   const googleSignupMutation = useGoogleSignup();
 
   const handleGoogleSignup = async () => {
-    const response = await googleSignupMutation.mutateAsync();
-    if (response.url) {
-      window.location.href = response.url;
+    const { data } = await googleSignup();
+    if (data?.url) {
+      window.location.href = data.url;
     }
   };
 
