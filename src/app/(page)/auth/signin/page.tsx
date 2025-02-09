@@ -1,5 +1,5 @@
 "use client";
-import { SocialLoginButtons } from "@/components/signin/SocialLoginButtons";
+import { SocialLoginButtons } from "@/components/signin/SocialSignupButtons";
 import { Button, Input, TextLoading } from "@/shared/components";
 import { apiClient } from "@/shared/utils";
 import Link from "next/link";
