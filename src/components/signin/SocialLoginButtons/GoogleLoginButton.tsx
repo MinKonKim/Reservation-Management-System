@@ -12,10 +12,11 @@ const GoogleLoginButton = () => {
 
   return (
     <button
+      className="w-full h-[40px] "
       onClick={handleGoogleSignup}
       disabled={googleSignupMutation.isPending}
     >
-      {googleSignupMutation.isPending ? "로그인 중..." : "Google 로그인"}
+      {googleSignupMutation.isPending ? "로그인 중..." : "Google로 로그인하기"}
     </button>
   );
 };
