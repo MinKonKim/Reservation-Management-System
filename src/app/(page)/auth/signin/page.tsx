@@ -41,6 +41,7 @@ const SigninPage = () => {
           {isLoading ? <TextLoading text="로그인중..." /> : "로그인 하기"}
         </Button>
       </form>
+      {/**소셜 로그인 버튼들 */}
       <SocialSignupButtons />
       <Link
         href={"/auth/role-select"}

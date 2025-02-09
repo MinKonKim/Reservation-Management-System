@@ -8,9 +8,7 @@ type GoogleSignupResponse = {
 };
 
 const googleSignup = async () => {
-  const { data } = await apiClient.post<GoogleSignupResponse>(
-    "/api/auth/google"
-  );
+  const { data } = await apiClient.post<GoogleSignupResponse>("/auth/google");
   if (!data.success) throw new Error(data.message);
   return data;
 };

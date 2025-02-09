@@ -16,7 +16,10 @@
   }
 
   .social-signup-button {
-    @apply flex items-center justify-center w-full h-[40px] px-3 py-5 rounded-full;
+    @apply flex items-center justify-center w-full h-[40px] px-3 py-5 rounded-lg gap-2 shadow-md  hover:brightness-95
+    active:brightness-90
+    transition duration-150
+    focus:outline-none;
   }
 }
 

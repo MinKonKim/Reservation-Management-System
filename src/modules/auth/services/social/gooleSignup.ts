@@ -9,10 +9,11 @@ export const googleSignup = async (
 ): PromiseApiResponse<SignupResponse> => {
   try {
     // 🔹 Google 로그인 URL 생성 (리다이렉트 방식)
+    console.log("origin Google ", origin);
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${origin}/auth/callback`,
+        redirectTo: "https://kjwkqrrkmltjrzhetnji.supabase.co/auth/v1/callback",
         // queryParams: {
         //   access_type: "offline",
         //   prompt: "consent",
