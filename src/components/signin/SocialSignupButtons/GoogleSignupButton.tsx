@@ -1,7 +1,6 @@
 import { useGoogleSignup } from "@/modules/auth/hook/OAuth";
 import { GoogleIcon } from "@/shared/Icons";
-
-const GooleSignupButton = () => {
+const GoogleSignupButton = () => {
   const googleSignupMutation = useGoogleSignup();
 
   const handleGoogleSignup = async () => {
@@ -13,7 +12,7 @@ const GooleSignupButton = () => {
 
   return (
     <button
-      className="w-full h-[40px] px-3 "
+      className="social-signup-button bg-white text-black"
       onClick={handleGoogleSignup}
       disabled={googleSignupMutation.isPending}
     >
@@ -23,4 +22,4 @@ const GooleSignupButton = () => {
   );
 };
 
-export default GooleSignupButton;
+export default GoogleSignupButton;

@@ -3,36 +3,24 @@ import fs from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// ✅ __dirname 대체 코드 (ESM 방식)
+// __dirname 대체 (ESM 환경)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 📂 SVG 폴더 경로
-const SVG_DIR = path.join(__dirname, "../svg");
-// 📂 Icons 폴더 경로
-const ICONS_DIR = path.join(__dirname, "../shared/Icons");
+// 📂 SVG 원본 폴더
+const SVG_DIR = path.join(__dirname, "../../public/svg");
+// 📂 React 컴포넌트가 저장될 폴더
+const ICONS_DIR = path.join(__dirname, "../shared/icons");
+// 📂 index.ts 파일 경로
 const INDEX_FILE = path.join(ICONS_DIR, "index.ts");
 
 // Icons 폴더 생성 (없으면 생성)
 fs.ensureDirSync(ICONS_DIR);
 
-// ✅ 기존 `index.ts` 파일 읽기 (없으면 빈 문자열)
-const existingExports = fs.existsSync(INDEX_FILE)
-  ? fs.readFileSync(INDEX_FILE, "utf-8")
-  : "";
+// index.ts 초기화
+fs.writeFileSync(INDEX_FILE, "");
 
-// ✅ 기존에 등록된 아이콘 목록 추출
-const existingIcons = new Set(
-  existingExports
-    .split("\n")
-    .map((line) => {
-      const match = line.match(/export \{ default as (\w+) \}/);
-      return match ? match[1] : null;
-    })
-    .filter(Boolean)
-);
-
-// ✅ svg 폴더에서 모든 `.svg` 파일 가져오기
+// `.svg` 파일 가져오기
 const files = fs.readdirSync(SVG_DIR).filter((file) => file.endsWith(".svg"));
 
 if (files.length === 0) {
@@ -40,30 +28,33 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-// ✅ 새롭게 추가할 아이콘만 필터링
-const newExports = files
-  .map((file) => {
-    const fileName = path.basename(file, ".svg"); // 확장자 제거
-    const iconName = pascalCase(fileName) + "Icon"; // `my-icon` → `MyIcon`
+// 아이콘 컴포넌트 생성
+files.forEach((file) => {
+  const fileName = path.basename(file, ".svg"); // 확장자 제거
+  const iconName = pascalCase(fileName) + "Icon"; // `my-icon` → `MyIcon`
 
-    // 기존에 등록된 아이콘은 추가하지 않음
-    if (existingIcons.has(iconName)) {
-      return null;
-    }
+  const componentFilePath = path.join(ICONS_DIR, `${iconName}.tsx`);
 
-    return `export { default as ${iconName} } from "@/svg/${fileName}.svg";`;
-  })
-  .filter(Boolean); // null 값 제거
+  // 컴포넌트 코드 생성
+  const componentCode = `
+import Image from "next/image";
 
-if (newExports.length === 0) {
-  console.log(
-    "✅ 추가할 아이콘이 없습니다. 모든 아이콘이 이미 등록되어 있습니다."
+const ${iconName} = ({ width = 24, height = 24, alt = "${iconName}" }) => {
+  return <Image src={"/svg/${fileName}.svg"} width={width} height={height} alt={alt} />;
+};
+
+export default ${iconName};
+  `;
+
+  // 파일 생성
+  fs.writeFileSync(componentFilePath, componentCode.trim());
+
+  // index.ts에 export 추가
+  fs.appendFileSync(
+    INDEX_FILE,
+    `export { default as ${iconName} } from "./${iconName}";\n`
   );
-  process.exit(0);
-}
+});
 
-// ✅ 기존 `index.ts`에 새로운 아이콘 추가
-fs.appendFileSync(INDEX_FILE, newExports.join("\n") + "\n");
-
-console.log(`✅ ${newExports.length}개의 새로운 아이콘이 추가되었습니다.`);
+console.log(`✅ ${files.length}개의 아이콘 컴포넌트가 생성되었습니다.`);
 console.log(`📁 생성된 파일: ${INDEX_FILE}`);
