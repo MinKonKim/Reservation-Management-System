@@ -12,7 +12,7 @@ const GoogleLoginButton = () => {
 
   return (
     <button
-      className="w-full h-[40px] "
+      className="w-full h-[40px] px-3 "
       onClick={handleGoogleSignup}
       disabled={googleSignupMutation.isPending}
     >
