@@ -44,7 +44,7 @@ if (files.length === 0) {
 const newExports = files
   .map((file) => {
     const fileName = path.basename(file, ".svg"); // 확장자 제거
-    const iconName = pascalCase(fileName); // `my-icon` → `MyIcon`
+    const iconName = pascalCase(fileName) + "Icon"; // `my-icon` → `MyIcon`
 
     // 기존에 등록된 아이콘은 추가하지 않음
     if (existingIcons.has(iconName)) {

@@ -1,6 +1,7 @@
 import { useGoogleSignup } from "@/modules/auth/hook/OAuth";
+import { GoogleIcon } from "@/shared/Icons";
 
-const GoogleLoginButton = () => {
+const GooleSignupButton = () => {
   const googleSignupMutation = useGoogleSignup();
 
   const handleGoogleSignup = async () => {
@@ -16,9 +17,10 @@ const GoogleLoginButton = () => {
       onClick={handleGoogleSignup}
       disabled={googleSignupMutation.isPending}
     >
+      <GoogleIcon />
       {googleSignupMutation.isPending ? "로그인 중..." : "Google로 로그인하기"}
     </button>
   );
 };
 
-export default GoogleLoginButton;
+export default GooleSignupButton;
