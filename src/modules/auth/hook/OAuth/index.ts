@@ -1,1 +1,2 @@
-export { default as useGoogleSignup } from "./useGoogleSignup";
+export * from "./useGoogleSignup";
+export * from "./useKakaoSignup";

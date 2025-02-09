@@ -1,5 +1,6 @@
 "use client";
 import { SignupForm } from "@/components/signup";
+import { SocialSignupButtons } from "@/components/signup/SocialSignupButtons";
 import { SignupFormType } from "@/modules/auth/types";
 import { apiClient } from "@/shared/utils";
 import { SubmitHandler } from "react-hook-form";
@@ -16,6 +17,7 @@ const SignupPage = () => {
       {/* TODO: 각각의 입력마다 유효성 검사 +  UI  */}
       <h2 className="title-md">회원가입</h2>
       <SignupForm onSubmit={onSubmit} />
+      <SocialSignupButtons />
     </div>
   );
 };

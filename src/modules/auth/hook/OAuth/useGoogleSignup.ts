@@ -16,7 +16,7 @@ const handleGoogleSignup = async () => {
   };
 };
 
-const useGoogleSignup = () => {
+export const useGoogleSignup = () => {
   return useMutation<GoogleSignupResponse>({
     mutationFn: handleGoogleSignup,
     onSuccess: () => {
@@ -27,5 +27,3 @@ const useGoogleSignup = () => {
     },
   });
 };
-
-export default useGoogleSignup;
