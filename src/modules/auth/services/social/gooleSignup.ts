@@ -1,45 +1,22 @@
-import { PromiseApiResponse } from "@/shared/types";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { SignupResponse } from "../../types";
-import { handleAuthError } from "../../utils";
+import { serverClient } from "@/shared/utils/supabase";
 
-export const googleSignup = async (
-  origin: string,
-  supabase: SupabaseClient
-): PromiseApiResponse<SignupResponse> => {
-  try {
-    // 🔹 Google 로그인 URL 생성 (리다이렉트 방식)
-    console.log("origin Google ", origin);
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: "https://kjwkqrrkmltjrzhetnji.supabase.co/auth/v1/callback",
-        // queryParams: {
-        //   access_type: "offline",
-        //   prompt: "consent",
-        // },
-      },
-    });
+export const googleSignup = async () => {
+  const supabase = await serverClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+  });
 
-    if (error) {
-      return {
-        success: false,
-        message: error.message as string,
-        data: { status: error.status },
-      };
-    }
-
-    return {
-      success: true,
-      message: "구글로 회원가입 성공!",
-      data: { status: 200, url: data.url! },
-    };
-  } catch (error: unknown) {
-    const { message, status } = handleAuthError(error);
+  if (error) {
     return {
       success: false,
-      message,
-      data: { status },
+      message: "구글로 회원가입에 실패했습니다.",
+      error,
     };
   }
+
+  return {
+    success: true,
+    message: "구글로 회원가입 성공!",
+    data,
+  };
 };

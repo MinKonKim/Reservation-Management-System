@@ -1,5 +1,5 @@
-import { apiClient } from "@/shared/utils";
 import { useMutation } from "@tanstack/react-query";
+import { googleSignup } from "../../services/social";
 
 type GoogleSignupResponse = {
   success: boolean;
@@ -7,15 +7,18 @@ type GoogleSignupResponse = {
   message?: string;
 };
 
-const googleSignup = async () => {
-  const { data } = await apiClient.post<GoogleSignupResponse>("/auth/google");
-  if (!data.success) throw new Error(data.message);
-  return data;
+const handleGoogleSignup = async () => {
+  const { data, success, error } = await googleSignup();
+  return {
+    success,
+    url: data?.url,
+    message: success ? data?.provider : error?.message,
+  };
 };
 
 const useGoogleSignup = () => {
   return useMutation<GoogleSignupResponse>({
-    mutationFn: googleSignup,
+    mutationFn: handleGoogleSignup,
     onSuccess: () => {
       console.log("Google 로그인 성공!");
     },
