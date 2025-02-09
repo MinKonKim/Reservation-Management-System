@@ -1,5 +1,5 @@
 "use client";
-import { SocialLoginButtons } from "@/components/signin";
+import { SocialSignupButtons } from "@/components/signin/SocialSignupButtons";
 import { Button, Input, TextLoading } from "@/shared/components";
 import { apiClient } from "@/shared/utils";
 import Link from "next/link";
@@ -41,7 +41,8 @@ const SigninPage = () => {
           {isLoading ? <TextLoading text="로그인중..." /> : "로그인 하기"}
         </Button>
       </form>
-      <SocialLoginButtons />
+      {/**소셜 로그인 버튼들 */}
+      <SocialSignupButtons />
       <Link
         href={"/auth/role-select"}
         className="text-sm w-full flex justify-center py-2 text-point-700 hover:text-point-500 hover:underline-1 "

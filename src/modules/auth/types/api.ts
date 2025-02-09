@@ -7,6 +7,7 @@ export type SignupFormType = {
 export type SignupResponse = {
   userId?: string;
   status?: number;
+  url?: string;
 };
 
 export type SigninResponse = {

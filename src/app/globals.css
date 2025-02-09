@@ -14,11 +14,17 @@
   .title-sm {
     @apply text-xl font-medium mb-1;
   }
+
+  .social-signup-button {
+    @apply flex items-center justify-center w-full h-[40px] px-3 py-5 rounded-lg gap-2 shadow-md  hover:brightness-95
+    active:brightness-90
+    transition duration-150
+    focus:outline-none;
+  }
 }
 
 @layer base {
   :root {
-
     --background: 0 0% 100%;
 
     --foreground: 240 10% 3.9%;
@@ -67,9 +73,9 @@
 
     --chart-5: 27 87% 67%;
 
-    --radius: 0.5rem}
+    --radius: 0.5rem;
+  }
   .dark {
-
     --background: 240 10% 3.9%;
 
     --foreground: 0 0% 98%;
@@ -116,7 +122,8 @@
 
     --chart-4: 280 65% 60%;
 
-    --chart-5: 340 75% 55%}
+    --chart-5: 340 75% 55%;
+  }
 }
 
 @layer base {

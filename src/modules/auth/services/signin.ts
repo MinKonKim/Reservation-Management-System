@@ -3,7 +3,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { SigninResponse } from "../types";
 import { handleAuthError } from "../utils";
 
-// 🔹 로그인 서비스 함수
+// 🔹일반반 로그인 서비스 함수
 export const signin = async (
   email: string,
   password: string,
