@@ -9,7 +9,8 @@ type GoogleSignupResponse = {
 };
 
 const handleGoogleSignup = async (role: string) => {
-  const { data, success, error } = await googleSignup(role);
+  console.log("role", role);
+  const { data, success, error } = await googleSignup();
   return {
     success,
     url: data?.url,
