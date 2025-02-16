@@ -1,5 +1,6 @@
+import { useRoleStore } from "@/stores";
 import { useMutation } from "@tanstack/react-query";
-import { googleSignup } from "../../services/social";
+import { googleSignup } from "../../services/OAuth";
 
 type GoogleSignupResponse = {
   success: boolean;
@@ -7,8 +8,8 @@ type GoogleSignupResponse = {
   message?: string;
 };
 
-const handleGoogleSignup = async () => {
-  const { data, success, error } = await googleSignup();
+const handleGoogleSignup = async (role: string) => {
+  const { data, success, error } = await googleSignup(role);
   return {
     success,
     url: data?.url,
@@ -17,10 +18,11 @@ const handleGoogleSignup = async () => {
 };
 
 export const useGoogleSignup = () => {
+  const { role } = useRoleStore();
   return useMutation<GoogleSignupResponse>({
-    mutationFn: handleGoogleSignup,
-    onSuccess: () => {
-      console.log("Google 로그인 성공!");
+    mutationFn: () => handleGoogleSignup(role!),
+    onSuccess: ({ message }) => {
+      console.log("Google 로그인 성공!", message);
     },
     onError: (error) => {
       console.error(error);

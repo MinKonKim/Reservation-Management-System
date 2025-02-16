@@ -1,6 +1,6 @@
 "use client";
 import { SignupForm } from "@/components/signup";
-import { SocialSignupButtons } from "@/components/signup/SocialSignupButtons";
+import { SocialSignupButtons } from "@/components/signup/OAuthSignupButtons";
 import { SignupFormType } from "@/modules/auth/types";
 import { apiClient } from "@/shared/utils";
 import { SubmitHandler } from "react-hook-form";

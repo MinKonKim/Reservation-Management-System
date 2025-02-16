@@ -1,8 +1,15 @@
 import { supabase } from "@/shared/utils/supabase";
 
-export const googleSignup = async () => {
+export const googleSignup = async (role: string) => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
+    options: {
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
+      redirectTo: `${window.location.origin}/api/auth/callback?role=${role}`, // ✅ 역할 정보를 쿼리스트링에 포함
+    },
   });
 
   if (error) {

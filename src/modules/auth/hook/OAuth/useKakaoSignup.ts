@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { kakaoSignup } from "../../services/social";
+import { kakaoSignup } from "../../services/OAuth";
 
 type KakaoSignupResponse = {
   success: boolean;

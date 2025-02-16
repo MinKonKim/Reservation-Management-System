@@ -18,7 +18,7 @@ const KakaoSignupButton = () => {
       disabled={kakaoSignupMutation.isPending}
     >
       <KakaoIcon />
-      {kakaoSignupMutation.isPending ? "로그인 중..." : "Kakao로 로그인하기"}
+      {kakaoSignupMutation.isPending ? "로그인 중..." : "Kakao로 시작하기"}
     </button>
   );
 };
