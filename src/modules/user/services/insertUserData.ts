@@ -1,12 +1,14 @@
+import createClient from "@/shared/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { InsertUserType } from "../types";
 
-interface insertUserProps {
+interface insertUserDataProps {
   userInfo: InsertUserType;
   supabase: SupabaseClient;
 }
 
-const insertUser = async ({ userInfo, supabase }: insertUserProps) => {
+const insertUserData = async ({ userInfo }: insertUserDataProps) => {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from("users")
     .insert([{ ...userInfo }]);
@@ -27,4 +29,4 @@ const insertUser = async ({ userInfo, supabase }: insertUserProps) => {
   };
 };
 
-export default insertUser;
+export default insertUserData;

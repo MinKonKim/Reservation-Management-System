@@ -1,7 +1,7 @@
 "use client";
 
+import { useRoleStore } from "@/modules/user/stores";
 import { Button } from "@/shared/components";
-import { useRoleStore } from "@/stores";
 import { useRouter } from "next/navigation";
 
 const RoleSelection = () => {
@@ -10,7 +10,7 @@ const RoleSelection = () => {
 
   const handleSelectRole = (role: "user" | "admin") => {
     setRole(role);
-    router.push(`/auth/signup`); // 회원가입 페이지로 이동
+    router.push(`/auth/signup?role=${role}`); // 회원가입 페이지로 이동
   };
 
   return (

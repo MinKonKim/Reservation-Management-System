@@ -1,32 +1,25 @@
-import { useRoleStore } from "@/stores";
+import { useRoleStore } from "@/modules/user/stores";
+import { apiClient } from "@/shared/utils";
 import { useMutation } from "@tanstack/react-query";
-import { googleSignup } from "../../services/OAuth";
 
-type GoogleSignupResponse = {
+interface GoogleSignupResponse {
   success: boolean;
   url?: string;
   message?: string;
-};
-
-const handleGoogleSignup = async (role: string) => {
-  console.log("role", role);
-  const { data, success, error } = await googleSignup();
-  return {
-    success,
-    url: data?.url,
-    message: success ? data?.provider : error?.message,
-  };
-};
+}
 
 export const useGoogleSignup = () => {
   const { role } = useRoleStore();
-  return useMutation<GoogleSignupResponse>({
-    mutationFn: () => handleGoogleSignup(role!),
-    onSuccess: ({ message }) => {
-      console.log("Google 로그인 성공!", message);
+  return useMutation<GoogleSignupResponse, Error>({
+    mutationFn: async () => {
+      const { data } = await apiClient.post<GoogleSignupResponse>(
+        `/auth/google?role=${role}`
+      );
+      if (!data.success) throw new Error(data.message);
+      return data;
     },
-    onError: (error) => {
-      console.error(error);
+    onSuccess: (data) => {
+      if (data.url) console.log(data.url);
     },
   });
 };

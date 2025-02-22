@@ -1,14 +1,14 @@
-// import { useGoogleSignup } from "@/modules/auth/hook/OAuth/useGoogleSignup";
+import { useGoogleSignup } from "@/modules/auth/hook/OAuth";
 import { GoogleIcon } from "@/shared/Icons";
 const GoogleSignupButton = () => {
-  // const googleSignupMutation = useGoogleSignup();
+  const googleSignupMutation = useGoogleSignup();
 
-  // const handleGoogleSignup = async () => {
-  //   const response = await googleSignupMutation.mutateAsync();
-  //   if (response?.url) {
-  //     window.location.href = response.url;
-  //   }
-  // };
+  const handleGoogleSignup = async () => {
+    const response = await googleSignupMutation.mutateAsync();
+    if (response?.url) {
+      window.location.href = response.url;
+    }
+  };
 
   return (
     <button
