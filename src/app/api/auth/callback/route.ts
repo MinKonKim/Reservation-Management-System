@@ -34,7 +34,6 @@ export const GET = async (request: NextRequest) => {
           email: user.email,
           role: "admin",
           created_at: user.created_at,
-          managed_space: [],
           name: user.user_metadata.name,
           phone_number: "",
         };
@@ -52,6 +51,7 @@ export const GET = async (request: NextRequest) => {
           name: user.id,
           phone_number: "",
           profile_image_url: user.user_metadata.avatar_url,
+          social: user.app_metadata.provider,
         };
         const { success, status } = await insertUserData({ userInfo });
         if (!success) {
