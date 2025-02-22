@@ -1,29 +1,25 @@
-// import { useMutation } from "@tanstack/react-query";
-// import { kakaoSignup } from "../../services/OAuth";
+import { useRoleStore } from "@/modules/user/stores";
+import { apiClient } from "@/shared/utils";
+import { useMutation } from "@tanstack/react-query";
 
-// type KakaoSignupResponse = {
-//   success: boolean;
-//   url?: string;
-//   message?: string;
-// };
+type KakaoSignupResponse = {
+  success: boolean;
+  url?: string;
+  message?: string;
+};
 
-// const handleKakaoSignup = async () => {
-//   const { data, success, error } = await kakaoSignup();
-//   return {
-//     success,
-//     url: data?.url,
-//     message: success ? data?.provider : error?.message,
-//   };
-// };
-
-// export const useKakaoSignup = () => {
-//   return useMutation<KakaoSignupResponse>({
-//     mutationFn: handleKakaoSignup,
-//     onSuccess: () => {
-//       console.log("Kakao 로그인 성공!");
-//     },
-//     onError: (error) => {
-//       console.error(error);
-//     },
-//   });
-// };
+export const useKakaoSignup = () => {
+  const { role } = useRoleStore();
+  return useMutation<KakaoSignupResponse, Error>({
+    mutationFn: async () => {
+      const { data } = await apiClient.post<KakaoSignupResponse>(
+        `/auth/kakao?role=${role}`
+      );
+      if (!data.success) throw new Error(data.message);
+      return data;
+    },
+    onSuccess: (data) => {
+      if (data.url) console.log(data.url);
+    },
+  });
+};
