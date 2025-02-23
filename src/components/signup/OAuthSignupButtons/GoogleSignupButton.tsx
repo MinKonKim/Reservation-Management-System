@@ -16,7 +16,9 @@ const GoogleSignupButton = () => {
       onClick={handleGoogleSignup}
       disabled={googleSignupMutation.isPending}
     >
-      <GoogleIcon />
+      <div className="social-icon">
+        <GoogleIcon />
+      </div>
       {googleSignupMutation.isPending ? "로그인 중..." : "Google로 시작하기"}
     </button>
   );

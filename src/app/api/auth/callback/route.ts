@@ -10,6 +10,7 @@ export const GET = async (request: NextRequest) => {
   const code = searchParams.get("code");
   // if "next" is in param, use it as the redirect URL
   const role = searchParams.get("role");
+  // TODO: [유저 아이디]로 받을 수 있게끔 경로 수정.
   const next = role === "admin" ? "/admin/dashboard" : "/dashboard"; //권한 별  Redirect 되는 경로.
   if (code) {
     const supabase = await createClient();
@@ -46,7 +47,7 @@ export const GET = async (request: NextRequest) => {
         const userInfo: InsertUserType = {
           user_id: user.id,
           email: user.email,
-          role: "admin",
+          role: "user",
           created_at: user.created_at,
           name: user.id,
           phone_number: "",
