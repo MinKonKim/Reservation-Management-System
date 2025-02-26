@@ -8,7 +8,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (request: NextRequest) => {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  // if "next" is in param, use it as the redirect URL
   const role = searchParams.get("role");
   // TODO: [유저 아이디]로 받을 수 있게끔 경로 수정.
   const next = role === "admin" ? "/admin/dashboard" : "/dashboard"; //권한 별  Redirect 되는 경로.
